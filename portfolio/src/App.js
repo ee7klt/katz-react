@@ -3,21 +3,7 @@ import React, {Component} from 'react';
 
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state={displayBio: false};
-
-  }
-
-
-  // readMore = () => {
-  //   this.setState({displayBio: true})
-  // }
-  //
-  // readLess = () => {
-  //   this.setState({displayBio: false})
-  // }
-
+  state={displayBio: false};
   toggleDisplayBio = () => {
     console.log(this.state)
     this.setState({displayBio: !this.state.displayBio});
