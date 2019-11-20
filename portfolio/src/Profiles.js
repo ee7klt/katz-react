@@ -1,16 +1,32 @@
 import React, {Component} from 'react';
 import SOCIALPROFILES from './data/socialProfiles';
 
+
+class Profile extends Component {
+  render() {
+    const {title, description, image, link} = this.props.profile;
+    return (
+      <div>
+      {title}
+      <img src= {image} style = {{width: 20}} />
+      </div>
+
+    )
+  }
+}
+
+
 class Profiles extends Component {
   render() {
     return (
-      <div>
-      {SOCIALPROFILES.map(profile => {
+      SOCIALPROFILES.map(PROFILE => {
         return (
-          <div>{profile.title}</div>
+          <div>
+          <Profile key={PROFILE.id} profile={PROFILE}/>
+          </div>
         )
-      })}
-      </div>
+      })
+
     )
   }
 }
