@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Projects from './Projects';
 import Profiles from './Profiles';
+import profilePicture from './assets/profile.png';
 
 class App extends Component {
   state={displayBio: false};
@@ -12,7 +13,8 @@ class App extends Component {
   render() {
 
     return (
-      <div>
+      <div >
+      <img src={profilePicture} alt='profile picture' className='profile'  />
         <h1>Hello!</h1>
         <p>My name is Alex</p>
         <p>I'm a Machine Learning Engineer</p>
@@ -22,6 +24,7 @@ class App extends Component {
             <p>Besides coding I like learning new languages</p>
             <div><button onClick={this.toggleDisplayBio}>Show less</button></div>
           </div>) : (<div><button onClick={this.toggleDisplayBio}>Read more</button></div>)}
+
             <hr />
             <Projects />
             <hr />

@@ -6,9 +6,10 @@ class Profile extends Component {
   render() {
     const {title, description, image, link} = this.props.profile;
     return (
-      <div>
-      {title}
-      <img src= {image} style = {{width: 20}} />
+      <div style={{margin:10}} >
+      <a href={link} >
+      <img src= {image} style = {{width: 40}} />
+      </a>
       </div>
 
     )
@@ -19,13 +20,21 @@ class Profile extends Component {
 class Profiles extends Component {
   render() {
     return (
-      SOCIALPROFILES.map(PROFILE => {
-        return (
-          <div>
-          <Profile key={PROFILE.id} profile={PROFILE}/>
-          </div>
+      <div>
+        <h2>Connect with me!</h2>
+        <div style={{display:'flex', flexDirection: 'row'}}>
+        {
+          SOCIALPROFILES.map(PROFILE => {
+            return (
+              <div>
+              <Profile key={PROFILE.id} profile={PROFILE}/>
+              </div>
+            )
+          }
         )
-      })
+        }
+        </div>
+    </div>
 
     )
   }
