@@ -32083,15 +32083,18 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Title)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      titleIndex: 0
+      titleIndex: 0,
+      fadeIn: true
     });
 
     _defineProperty(_assertThisInitialized(_this), "animateTitles", function () {
       _this.titleInterval = setInterval(function () {
         var titleIndex = (_this.state.titleIndex + 1) % TITLES.length;
+        var fadeIn = !_this.state.fadeIn;
 
         _this.setState({
-          titleIndex: titleIndex
+          titleIndex: titleIndex,
+          fadeIn: fadeIn
         });
       }, 4000);
       console.log(_this.titleInterval);
@@ -32115,8 +32118,13 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var title = TITLES[this.state.titleIndex];
-      return _react.default.createElement("p", null, "I am ", title);
+      var _this$state = this.state,
+          fadeIn = _this$state.fadeIn,
+          titleIndex = _this$state.titleIndex;
+      var title = TITLES[titleIndex];
+      return _react.default.createElement("p", {
+        className: fadeIn ? 'title-fade-in' : 'title-fade-out'
+      }, "I am ", title);
     }
   }]);
 
@@ -32336,7 +32344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50330" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63056" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
