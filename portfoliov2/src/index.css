@@ -47,3 +47,17 @@ h1, h2, h3, h4, h5 {
   from {opacity: 0}
   to {opacity: 100}
 }
+
+
+@keyframes fade-in-out {
+  from {opacity: 0}
+  50% {opacity:100}
+  to {opacity: 0}
+}
+
+.title-fade-in-out {
+  opacity:0;
+  animation-name: fade-in-out;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
