@@ -32090,12 +32090,17 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "animateTitles", function () {
       _this.titleInterval = setInterval(function () {
         var titleIndex = (_this.state.titleIndex + 1) % TITLES.length;
-        var fadeIn = !_this.state.fadeIn;
 
         _this.setState({
           titleIndex: titleIndex,
-          fadeIn: fadeIn
+          fadeIn: true
         });
+
+        _this.timeout = setTimeout(function () {
+          return _this.setState({
+            fadeIn: false
+          });
+        }, 2000);
       }, 4000);
       console.log(_this.titleInterval);
     });
@@ -32106,6 +32111,13 @@ function (_Component) {
   _createClass(Title, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
+      this.timeout = setTimeout(function () {
+        return _this2.setState({
+          fadeIn: false
+        });
+      }, 2000);
       console.log('Title component has mounted');
       this.animateTitles();
     }
@@ -32114,6 +32126,7 @@ function (_Component) {
     value: function componentWillUnmount() {
       console.log('Title component will unmount!');
       clearInterval(this.titleInterval);
+      clearTimeout(this.timeout);
     }
   }, {
     key: "render",
@@ -32344,7 +32357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63056" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59612" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
