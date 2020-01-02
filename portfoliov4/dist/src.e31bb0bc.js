@@ -32036,7 +32036,7 @@ function (_Component) {
 
 var _default = Title;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"components/Jokes.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"components/TenJokes.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32070,58 +32070,71 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Jokes =
+var Joke = function Joke(props) {
+  var _props$joke = props.joke,
+      id = _props$joke.id,
+      type = _props$joke.type,
+      setup = _props$joke.setup,
+      punchline = _props$joke.punchline;
+  return _react.default.createElement("div", null, _react.default.createElement("span", null, setup), _react.default.createElement("br", null), _react.default.createElement("em", null, punchline));
+};
+
+var TenJokes =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Jokes, _Component);
+  _inherits(TenJokes, _Component);
 
-  function Jokes() {
+  function TenJokes() {
     var _getPrototypeOf2;
 
     var _this;
 
-    _classCallCheck(this, Jokes);
+    _classCallCheck(this, TenJokes);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Jokes)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TenJokes)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      joke: {}
+      jokes: []
     });
 
     return _this;
   }
 
-  _createClass(Jokes, [{
+  _createClass(TenJokes, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('https://official-joke-api.appspot.com/random_joke').then(function (response) {
+      fetch('https://official-joke-api.appspot.com/random_ten').then(function (response) {
         return response.json();
       }).then(function (json) {
         return _this2.setState({
-          joke: json
+          jokes: json
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$state$joke = this.state.joke,
-          setup = _this$state$joke.setup,
-          punchline = _this$state$joke.punchline;
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Highlighted joke"), _react.default.createElement("p", null, setup), _react.default.createElement("em", null, punchline));
+      var item = this.state.jokes[0];
+      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "10 Random Jokes"), this.state.jokes.map(function (joke) {
+        return _react.default.createElement("div", {
+          key: joke.id
+        }, _react.default.createElement(Joke, {
+          joke: joke
+        }));
+      }));
     }
   }]);
 
-  return Jokes;
+  return TenJokes;
 }(_react.Component);
 
-var _default = Jokes;
+var _default = TenJokes;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
@@ -32141,7 +32154,7 @@ var _profile = _interopRequireDefault(require("../assets/profile.png"));
 
 var _Title = _interopRequireDefault(require("./Title.js"));
 
-var _Jokes = _interopRequireDefault(require("./Jokes.js"));
+var _TenJokes = _interopRequireDefault(require("./TenJokes.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32213,7 +32226,7 @@ function (_Component) {
         onClick: this.toggleDisplayBio
       }, "Show less"))) : _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.toggleDisplayBio
-      }, "Read more")), _react.default.createElement("hr", null), _react.default.createElement(_Projects.default, null), _react.default.createElement("hr", null), _react.default.createElement(_Profiles.default, null), _react.default.createElement("hr", null), _react.default.createElement(_Jokes.default, null));
+      }, "Read more")), _react.default.createElement("hr", null), _react.default.createElement(_Projects.default, null), _react.default.createElement("hr", null), _react.default.createElement(_Profiles.default, null), _react.default.createElement("hr", null), _react.default.createElement(_TenJokes.default, null));
     }
   }]);
 
@@ -32222,7 +32235,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Projects":"components/Projects.js","./Profiles":"components/Profiles.js","../assets/profile.png":"assets/profile.png","./Title.js":"components/Title.js","./Jokes.js":"components/Jokes.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Projects":"components/Projects.js","./Profiles":"components/Profiles.js","../assets/profile.png":"assets/profile.png","./Title.js":"components/Title.js","./TenJokes.js":"components/TenJokes.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32336,7 +32349,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56406" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58139" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
