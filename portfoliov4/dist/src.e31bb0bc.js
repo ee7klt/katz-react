@@ -32070,13 +32070,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Joke = function Joke(props) {
-  var _props$joke = props.joke,
-      id = _props$joke.id,
-      type = _props$joke.type,
-      setup = _props$joke.setup,
-      punchline = _props$joke.punchline;
-  return _react.default.createElement("div", null, _react.default.createElement("span", null, setup), _react.default.createElement("br", null), _react.default.createElement("em", null, punchline));
+var Joke = function Joke(_ref) {
+  var _ref$joke = _ref.joke,
+      id = _ref$joke.id,
+      type = _ref$joke.type,
+      setup = _ref$joke.setup,
+      punchline = _ref$joke.punchline;
+  return _react.default.createElement("div", {
+    style: {
+      margin: 20
+    }
+  }, _react.default.createElement("span", null, setup), _react.default.createElement("br", null), _react.default.createElement("em", null, punchline));
 };
 
 var TenJokes =
@@ -32098,35 +32102,38 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TenJokes)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      jokes: []
+      jokes: [],
+      myObj: [{
+        'hi': 'there'
+      }, {
+        'one': 'two'
+      }]
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "fetchJokes", function () {
+      fetch('https://official-joke-api.appspot.com/random_ten').then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this.setState({
+          jokes: json
+        });
+      });
     });
 
     return _this;
   }
 
   _createClass(TenJokes, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      fetch('https://official-joke-api.appspot.com/random_ten').then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          jokes: json
-        });
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var item = this.state.jokes[0];
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "10 Random Jokes"), this.state.jokes.map(function (joke) {
-        return _react.default.createElement("div", {
-          key: joke.id
-        }, _react.default.createElement(Joke, {
+      console.log(this.state.myObj[0].hi);
+      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "10 Random Jokes"), _react.default.createElement("button", {
+        onClick: this.fetchJokes
+      }, "Click Me!"), this.state.jokes.map(function (joke) {
+        return _react.default.createElement(Joke, {
+          id: joke.id,
           joke: joke
-        }));
+        });
       }));
     }
   }]);
@@ -32349,7 +32356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58139" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60182" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
