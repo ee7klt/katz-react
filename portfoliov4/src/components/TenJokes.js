@@ -19,12 +19,11 @@ const Joke = ({joke:{id, type, setup, punchline}}) => {
     }
 
     render() {
-      console.log(this.state.myObj[0].hi)
       return (
         <div>
         <h2>10 Random Jokes</h2>
         <button onClick={this.fetchJokes}>Click Me!</button>
-        {this.state.jokes.map(joke =>  (<Joke id={joke.id} joke = {joke}/>))}
+        {this.state.jokes.map(joke =>  (<Joke key={joke.id} joke = {joke}/>))}
         </div>
 
       )
