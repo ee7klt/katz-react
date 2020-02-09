@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import Jokes from './components/TenJokes';
+import Jokes from './components/Jokes';
 import {Router, Switch, Route} from 'react-router-dom';
 import './index.css';
 import createBrowserHistory from 'history/createBrowserHistory';

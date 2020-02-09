@@ -1,27 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
+import TenJokes from '/components/TenJokes';
+import OneJoke from '/components/OneJoke';
 
-class Jokes extends Component {
-  state = {joke: {}};
-  componentDidMount() {
-    fetch('https://official-joke-api.appspot.com/random_joke')
-      .then(response => response.json())
-      .then(json => this.setState({joke: json}))
-  }
+  const Jokes = () =>  {
+
+  
+      return (
+        <div>
+        <OneJoke />
+        <hr/>
+        <TenJokes />
+        </div>
+
+      )
 
 
-render() {
-  const {setup,punchline} = this.state.joke;
-  return (
-    <div>
-    <h2>Highlighted joke</h2>
-    <p>{setup}</p>
-    <em>{punchline}</em>
-    </div>
-
-  )
-}
-
-}
+    }
 
 
 export default Jokes;
