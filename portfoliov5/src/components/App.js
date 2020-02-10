@@ -16,7 +16,7 @@ class App extends Component {
 
     return (
       <div >
-      <Header />
+
       <img src={profilePicture} alt='profile picture' className='profile'  />
         <h1>Hello!</h1>
         <p>My name is Alex</p>
@@ -37,4 +37,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const AppWithHeader = () => {
+  return (
+    <Header Component={App} />
+  )
+}
+
+
+export default AppWithHeader;

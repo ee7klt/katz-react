@@ -36872,14 +36872,14 @@ var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var style = {
-  display: 'inline-block',
-  margin: 10,
-  marginBottom: 30
-};
-
-var Header = function Header() {
-  return _react.default.createElement("div", null, _react.default.createElement("h3", {
+var Header = function Header(props) {
+  var Component = props.Component;
+  var style = {
+    display: 'inline-block',
+    margin: 10,
+    marginBottom: 30
+  };
+  return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h3", {
     style: style
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -36887,7 +36887,7 @@ var Header = function Header() {
     style: style
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/jokes"
-  }, "Jokes")));
+  }, "Jokes"))), _react.default.createElement(Component, null));
 };
 
 var _default = Header;
@@ -36974,7 +36974,7 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement("img", {
+      return _react.default.createElement("div", null, _react.default.createElement("img", {
         src: _profile.default,
         alt: "profile picture",
         className: "profile"
@@ -36989,7 +36989,13 @@ function (_Component) {
   return App;
 }(_react.Component);
 
-var _default = App;
+var AppWithHeader = function AppWithHeader() {
+  return _react.default.createElement(_Header.default, {
+    Component: App
+  });
+};
+
+var _default = AppWithHeader;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","./Projects":"components/Projects.js","./Profiles":"components/Profiles.js","../assets/profile.png":"assets/profile.png","./Title":"components/Title.js","./Header":"components/Header.js"}],"components/TenJokes.js":[function(require,module,exports) {
 "use strict";
@@ -37200,17 +37206,15 @@ var _TenJokes = _interopRequireDefault(require("/components/TenJokes"));
 
 var _OneJoke = _interopRequireDefault(require("/components/OneJoke"));
 
-var _Header = _interopRequireDefault(require("/components/Header"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Jokes = function Jokes() {
-  return _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(_OneJoke.default, null), _react.default.createElement("hr", null), _react.default.createElement(_TenJokes.default, null));
+  return _react.default.createElement("div", null, _react.default.createElement(_OneJoke.default, null), _react.default.createElement("hr", null), _react.default.createElement(_TenJokes.default, null));
 };
 
 var _default = Jokes;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","/components/TenJokes":"components/TenJokes.js","/components/OneJoke":"components/OneJoke.js","/components/Header":"components/Header.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","/components/TenJokes":"components/TenJokes.js","/components/OneJoke":"components/OneJoke.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -37940,7 +37944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61083" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65505" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
