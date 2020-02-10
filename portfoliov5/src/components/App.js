@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Projects from './Projects';
 import Profiles from './Profiles';
 import profilePicture from '../assets/profile.png';
-import Title from './Title.js';
-
+import Title from './Title';
+import Header from './Header';
 
 class App extends Component {
   state={displayBio: false};
@@ -16,6 +16,7 @@ class App extends Component {
 
     return (
       <div >
+      <Header />
       <img src={profilePicture} alt='profile picture' className='profile'  />
         <h1>Hello!</h1>
         <p>My name is Alex</p>
