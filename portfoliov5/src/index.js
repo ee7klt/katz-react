@@ -10,8 +10,8 @@ import Header from './components/Header';
 ReactDOM.render(
   <Router history={createBrowserHistory()}>
     <Switch>
-    <Route  exact={true} path='/' render={()=> <Header Component={App} />}></Route>
-      <Route path='/jokes' render={()=> <Header Component={Jokes} />}></Route>
+    <Route  exact={true} path='/' render={()=> <Header><App /><Header />}></Route>
+      <Route path='/jokes' render={()=> <Header><App /><Header />}></Route>
     </Switch>
   </Router>,
   document.getElementById('root')
