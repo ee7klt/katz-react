@@ -5,13 +5,13 @@ import Jokes from './components/Jokes';
 import {Router, Switch, Route} from 'react-router-dom';
 import './index.css';
 import createBrowserHistory from 'history/createBrowserHistory';
-
+import Header from './components/Header';
 
 ReactDOM.render(
   <Router history={createBrowserHistory()}>
     <Switch>
-    <Route  exact={true} path='/' component={App}></Route>
-      <Route path='/jokes' component={Jokes}></Route>
+    <Route  exact={true} path='/' render={()=> <Header Component={App} />}></Route>
+      <Route path='/jokes' render={()=> <Header Component={Jokes} />}></Route>
     </Switch>
   </Router>,
   document.getElementById('root')

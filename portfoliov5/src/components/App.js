@@ -3,7 +3,7 @@ import Projects from './Projects';
 import Profiles from './Profiles';
 import profilePicture from '../assets/profile.png';
 import Title from './Title';
-import Header from './Header';
+
 
 class App extends Component {
   state={displayBio: false};
@@ -37,11 +37,6 @@ class App extends Component {
   }
 }
 
-const AppWithHeader = () => {
-  return (
-    <Header Component={App} />
-  )
-}
 
 
-export default AppWithHeader;
+export default App;
