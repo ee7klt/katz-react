@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import FetchArtist from './FetchArtist';
 
 
 class App extends Component {
@@ -33,7 +33,7 @@ class App extends Component {
           placeholder='Search for an Artist'
         />
         <button onClick={this.searchArtist}>Search</button>
-
+        <FetchArtist />
       </div>
     )
   }
