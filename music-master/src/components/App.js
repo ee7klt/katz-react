@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import FetchArtist from './FetchArtist';
+
 
 
 class App extends Component {
-  state = {artistQuery: ''};
+  state = {artistQuery: '', result:''};
 
   updateArtistQuery = event => {
     //console.log('event.target.value',event.target.value);
@@ -18,9 +18,9 @@ class App extends Component {
   }
 
   searchArtist = () => {
-    console.log('this.state',this.state);
-
-
+      fetch('https://spotify-api-wrapper.appspot.com/artist/'+this.state.artistQuery)
+        .then(response => response.json())
+        .then(json => this.setState({result: json}))
   }
 
   render() {
@@ -33,7 +33,7 @@ class App extends Component {
           placeholder='Search for an Artist'
         />
         <button onClick={this.searchArtist}>Search</button>
-        <FetchArtist />
+        <p>{JSON.stringify(this.state.artistQuery)}</p>
       </div>
     )
   }
