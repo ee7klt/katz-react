@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 
 class App extends Component {
-  state = {artistQuery: '', artistId: '', topTracks:[]};
+  state = {artistQuery: null, artistId: null, topTracks: null};
 
   updateArtistQuery = event => {
     //console.log('event.target.value',event.target.value);
@@ -12,7 +12,8 @@ class App extends Component {
 
   handleKeyPress = event => {
     if (event.key === 'Enter') {
-      this.searchArtist()
+      this.searchArtist();
+      this.getTracks();
     }
   }
 
@@ -20,6 +21,12 @@ class App extends Component {
       fetch('https://spotify-api-wrapper.appspot.com/artist/'+this.state.artistQuery)
         .then(response => response.json())
         .then(json => this.setState({artistId:json.artists.items["0"].id}))
+  }
+
+  getTracks = () => {
+    fetch('https://spotify-api-wrapper.appspot.com/artist/'+this.state.artistId+'/top-tracks')
+      .then(response => response.json())
+      .then(data => this.setState({topTracks: data}))
   }
 
   render() {
@@ -34,6 +41,7 @@ class App extends Component {
         />
         <button onClick={this.searchArtist}>Search</button>
         <p>{JSON.stringify(this.state.artistId)}</p>
+          <p>{JSON.stringify(this.state.topTracks)}</p>
       </div>
     )
   }

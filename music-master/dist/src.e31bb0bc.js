@@ -31770,9 +31770,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      artistQuery: '',
-      artistId: '',
-      topTracks: []
+      artistQuery: null,
+      artistId: null,
+      topTracks: null
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateArtistQuery", function (event) {
@@ -31785,6 +31785,8 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "handleKeyPress", function (event) {
       if (event.key === 'Enter') {
         _this.searchArtist();
+
+        _this.getTracks();
       }
     });
 
@@ -31794,6 +31796,16 @@ function (_Component) {
       }).then(function (json) {
         return _this.setState({
           artistId: json.artists.items["0"].id
+        });
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getTracks", function () {
+      fetch('https://spotify-api-wrapper.appspot.com/artist/' + _this.state.artistId + '/top-tracks').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return _this.setState({
+          topTracks: data
         });
       });
     });
@@ -31811,7 +31823,7 @@ function (_Component) {
         placeholder: "Search for an Artist"
       }), _react.default.createElement("button", {
         onClick: this.searchArtist
-      }, "Search"), _react.default.createElement("p", null, JSON.stringify(this.state.artistId)));
+      }, "Search"), _react.default.createElement("p", null, JSON.stringify(this.state.artistId)), _react.default.createElement("p", null, JSON.stringify(this.state.topTracks)));
     }
   }]);
 
@@ -31933,7 +31945,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52380" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52397" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
