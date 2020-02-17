@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-
+const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
 
 
 class App extends Component {
-  state = {artistQuery: null, artistId: null, topTracks: null};
+  state = {artistQuery: '', artist: null, topTracks: null};
 
   updateArtistQuery = event => {
     //console.log('event.target.value',event.target.value);
@@ -13,21 +13,27 @@ class App extends Component {
   handleKeyPress = event => {
     if (event.key === 'Enter') {
       this.searchArtist();
-      this.getTracks();
     }
   }
 
-  searchArtist = () => {
-      fetch('https://spotify-api-wrapper.appspot.com/artist/'+this.state.artistQuery)
-        .then(response => response.json())
-        .then(json => this.setState({artistId:json.artists.items["0"].id}))
+  searchArtist = () =>  {
+    fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.artists.total > 0) {
+          const artist = data.artists.items[0];
+          this.setState({artist});
+          fetch(`${API_ADDRESS}/artist/${artist.id}/top-tracks`)
+            .then(res => res.json())
+            .then(data => {
+              this.setState({topTracks:data})
+            })
+            .catch(error => alert(error.message));
+        }
+      })
   }
 
-  getTracks = () => {
-    fetch('https://spotify-api-wrapper.appspot.com/artist/'+this.state.artistId+'/top-tracks')
-      .then(response => response.json())
-      .then(data => this.setState({topTracks: data}))
-  }
+
 
   render() {
     console.log(this.state.result)

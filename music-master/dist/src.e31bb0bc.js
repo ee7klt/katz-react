@@ -31751,6 +31751,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
+
 var App =
 /*#__PURE__*/
 function (_Component) {
@@ -31770,8 +31772,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      artistQuery: null,
-      artistId: null,
+      artistQuery: '',
+      artist: null,
       topTracks: null
     });
 
@@ -31785,28 +31787,30 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "handleKeyPress", function (event) {
       if (event.key === 'Enter') {
         _this.searchArtist();
-
-        _this.getTracks();
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "searchArtist", function () {
-      fetch('https://spotify-api-wrapper.appspot.com/artist/' + _this.state.artistQuery).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this.setState({
-          artistId: json.artists.items["0"].id
-        });
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "getTracks", function () {
-      fetch('https://spotify-api-wrapper.appspot.com/artist/' + _this.state.artistId + '/top-tracks').then(function (response) {
-        return response.json();
+      fetch("".concat(API_ADDRESS, "/artist/").concat(_this.state.artistQuery)).then(function (res) {
+        return res.json();
       }).then(function (data) {
-        return _this.setState({
-          topTracks: data
-        });
+        if (data.artists.total > 0) {
+          var artist = data.artists.items[0];
+
+          _this.setState({
+            artist: artist
+          });
+
+          fetch("".concat(API_ADDRESS, "/artist/").concat(artist.id, "/top-tracks")).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            _this.setState({
+              topTracks: data
+            });
+          }).catch(function (error) {
+            return alert(error.message);
+          });
+        }
       });
     });
 
@@ -31945,7 +31949,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52397" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52565" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
