@@ -31733,10 +31733,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -31775,6 +31771,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       artistQuery: '',
+      artistId: '',
       topTracks: []
     });
 
@@ -31795,38 +31792,10 @@ function (_Component) {
       fetch('https://spotify-api-wrapper.appspot.com/artist/' + _this.state.artistQuery).then(function (response) {
         return response.json();
       }).then(function (json) {
-        return json.artists.items["0"].id;
-      }).then(
-      /*#__PURE__*/
-      function () {
-        var _ref = _asyncToGenerator(
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee(id) {
-          return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return Promise.all(fetch('https://spotify-api-wrapper.appspot.com/artist/' + id + '/top-tracks').then(function (response) {
-                    return response.json();
-                  }).then(function (data) {
-                    return _this.setState({
-                      topTracks: data
-                    });
-                  }));
-
-                case 2:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      }());
+        return _this.setState({
+          artistId: json.artists.items["0"].id
+        });
+      });
     });
 
     return _this;
@@ -31842,7 +31811,7 @@ function (_Component) {
         placeholder: "Search for an Artist"
       }), _react.default.createElement("button", {
         onClick: this.searchArtist
-      }, "Search"), _react.default.createElement("p", null, JSON.stringify(this.state.topTracks)));
+      }, "Search"), _react.default.createElement("p", null, JSON.stringify(this.state.artistId)));
     }
   }]);
 
@@ -31964,7 +31933,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52328" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52380" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
