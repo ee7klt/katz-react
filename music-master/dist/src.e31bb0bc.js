@@ -31717,7 +31717,74 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/Artist.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Artist = function Artist(_ref) {
+  var artist = _ref.artist;
+  if (!artist) return null;
+  var name = artist.name,
+      images = artist.images,
+      followers = artist.followers,
+      popularity = artist.popularity,
+      genres = artist.genres;
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, name), _react.default.createElement("img", {
+    style: {
+      width: 200,
+      height: 200,
+      borderRadius: 100,
+      objectFit: 'cover'
+    },
+    src: images[0] && images[0].url,
+    alt: "profilepicture"
+  }), _react.default.createElement("p", null, "Followers: ", followers.total), _react.default.createElement("p", null, "Popularity: ", popularity), _react.default.createElement("p", null, "Genres: ", genres.join(', ')));
+};
+
+var _default = Artist;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Tracks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Tracks = function Tracks(_ref) {
+  var tracks = _ref.tracks;
+  if (tracks.length == 0) return null;
+  console.log({
+    tracks: tracks
+  });
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Top Tracks"), tracks.map(function (track) {
+    var name = track.name,
+        album = track.album,
+        id = track.id;
+    return _react.default.createElement("div", {
+      key: id,
+      style: {
+        display: 'flex'
+      }
+    }, _react.default.createElement("span", null, name), "(", _react.default.createElement("em", null, album.name), ")");
+  }));
+};
+
+var _default = Tracks;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31726,6 +31793,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+var _Artist = _interopRequireDefault(require("./Artist"));
+
+var _Tracks = _interopRequireDefault(require("./Tracks"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -31774,11 +31847,10 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       artistQuery: '',
       artist: null,
-      topTracks: null
+      tracks: []
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateArtistQuery", function (event) {
-      //console.log('event.target.value',event.target.value);
       _this.setState({
         artistQuery: event.target.value
       });
@@ -31805,7 +31877,7 @@ function (_Component) {
             return res.json();
           }).then(function (data) {
             _this.setState({
-              topTracks: data
+              tracks: data.tracks
             });
           }).catch(function (error) {
             return alert(error.message);
@@ -31820,14 +31892,17 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      console.log(this.state.result);
       return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Music Master"), _react.default.createElement("input", {
         onChange: this.updateArtistQuery,
         onKeyPress: this.handleKeyPress,
         placeholder: "Search for an Artist"
       }), _react.default.createElement("button", {
         onClick: this.searchArtist
-      }, "Search"), _react.default.createElement("p", null, JSON.stringify(this.state.artistId)), _react.default.createElement("p", null, JSON.stringify(this.state.topTracks)));
+      }, "Search"), _react.default.createElement(_Artist.default, {
+        artist: this.state.artist
+      }), _react.default.createElement(_Tracks.default, {
+        tracks: this.state.tracks
+      }));
     }
   }]);
 
@@ -31836,7 +31911,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Artist":"components/Artist.js","./Tracks":"components/Tracks.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31949,7 +32024,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52565" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62548" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
