@@ -16,6 +16,7 @@ const Joke = ({joke:{id, type, setup, punchline}}) => {
       fetch('https://official-joke-api.appspot.com/random_ten')
         .then(response => response.json())
         .then(json => this.setState({jokes: json}))
+        .catch(error => alert(error.message));
     }
 
     render() {

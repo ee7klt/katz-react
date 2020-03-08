@@ -32117,6 +32117,8 @@ function (_Component) {
         return _this.setState({
           jokes: json
         });
+      }).catch(function (error) {
+        return alert(error.message);
       });
     });
 
@@ -32328,12 +32330,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById('root'));
 
-new Promise(function (resolve) {
+new Promise(function (resolve, reject) {
   setTimeout(function () {
     resolve('Bears, Beats, Battlestar Galactica');
   }, 2000);
 }).then(function (quote) {
   console.log(quote);
+}).catch(function (error) {
+  return console.log('error', error);
 });
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./index.css":"index.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -32363,7 +32367,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62396" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50850" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

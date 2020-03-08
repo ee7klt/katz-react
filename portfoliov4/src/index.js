@@ -8,11 +8,18 @@ import './index.css';
 ReactDOM.render(<App></App>,document.getElementById('root'));
 
 
-new Promise(resolve => {
-  setTimeout(()=> {
-    resolve('Bears, Beats, Battlestar Galactica');
-  },2000)
+new Promise((resolve,reject) => {
+
+    setTimeout(()=> {
+      resolve('Bears, Beats, Battlestar Galactica');
+    },2000)
+  
+
+
+
+
 })
 .then(quote=>{
   console.log(quote)
 })
+.catch(error => console.log('error',error));

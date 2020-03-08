@@ -18,9 +18,9 @@ class App extends Component {
       <img src={profilePicture} alt='profile picture' className='profile'  />
         <h1>Hello!</h1>
         <p>My name is Alex</p>
-        {this.state.displayBio ? <Title />: null}
+        <Title />
         {this.state.displayBio ? (  <div>
-            <p>I live in Fukuoka, and I code every day</p>
+            <p>I live in Stockholm, and I code every day</p>
             <p>My favorite language is Python</p>
             <p>Besides coding I like learning new languages</p>
             <div><button onClick={this.toggleDisplayBio}>Show less</button></div>

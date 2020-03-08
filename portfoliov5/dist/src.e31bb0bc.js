@@ -37849,8 +37849,8 @@ var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Header = function Header(props) {
-  var Component = props.Component;
+var Header = function Header(_ref) {
+  var children = _ref.children;
   var style = {
     display: 'inline-block',
     margin: 10,
@@ -37864,7 +37864,7 @@ var Header = function Header(props) {
     style: style
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/jokes"
-  }, "Jokes"))), _react.default.createElement(Component, null));
+  }, "Jokes"))), children);
 };
 
 var _default = Header;
@@ -37896,16 +37896,12 @@ _reactDom.default.render(_react.default.createElement(_reactRouterDom.Router, {
   exact: true,
   path: "/",
   render: function render() {
-    return _react.default.createElement(_Header.default, {
-      Component: _App.default
-    });
+    return _react.default.createElement(_Header.default, null, _react.default.createElement(_App.default, null));
   }
 }), _react.default.createElement(_reactRouterDom.Route, {
   path: "/jokes",
   render: function render() {
-    return _react.default.createElement(_Header.default, {
-      Component: _Jokes.default
-    });
+    return _react.default.createElement(_Header.default, null, _react.default.createElement(_Jokes.default, null));
   }
 }))), document.getElementById('root'));
 
@@ -37946,7 +37942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61493" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53806" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

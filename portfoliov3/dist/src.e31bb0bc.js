@@ -31781,99 +31781,43 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _projects = _interopRequireDefault(require("../data/projects"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Project =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Project, _Component);
-
-  function Project() {
-    _classCallCheck(this, Project);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Project).apply(this, arguments));
-  }
-
-  _createClass(Project, [{
-    key: "render",
-    value: function render() {
-      var _this$props$project = this.props.project,
-          title = _this$props$project.title,
-          image = _this$props$project.image,
-          description = _this$props$project.description,
-          link = _this$props$project.link;
-      return _react.default.createElement("div", {
-        style: {
-          display: 'inline-block',
-          width: 300,
-          margin: 10
-        }
-      }, _react.default.createElement("h2", null, title), _react.default.createElement("img", {
-        src: image,
-        style: {
-          width: 200,
-          height: 120
-        }
-      }), _react.default.createElement("p", null, description), _react.default.createElement("a", {
-        href: link
-      }, "More..."));
+var Project = function Project(props) {
+  var _props$project = props.project,
+      title = _props$project.title,
+      image = _props$project.image,
+      description = _props$project.description,
+      link = _props$project.link;
+  return _react.default.createElement("div", {
+    style: {
+      display: 'inline-block',
+      width: 300,
+      margin: 10
     }
-  }]);
-
-  return Project;
-}(_react.Component);
-
-var Projects =
-/*#__PURE__*/
-function (_Component2) {
-  _inherits(Projects, _Component2);
-
-  function Projects() {
-    _classCallCheck(this, Projects);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Projects).apply(this, arguments));
-  }
-
-  _createClass(Projects, [{
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Highlighted Projects"), _react.default.createElement("div", null, _projects.default.map(function (PROJECT) {
-        return _react.default.createElement(Project, {
-          key: PROJECT.id,
-          project: PROJECT
-        });
-      })));
+  }, _react.default.createElement("h2", null, title), _react.default.createElement("img", {
+    src: image,
+    style: {
+      width: 200,
+      height: 120
     }
-  }]);
+  }), _react.default.createElement("p", null, description), _react.default.createElement("a", {
+    href: link
+  }, "More..."));
+};
 
-  return Projects;
-}(_react.Component);
+var Projects = function Projects() {
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Highlighted Projects"), _react.default.createElement("div", null, _projects.default.map(function (PROJECT) {
+    return _react.default.createElement(Project, {
+      key: PROJECT.id,
+      project: PROJECT
+    });
+  })));
+};
 
 var _default = Projects;
 exports.default = _default;
@@ -31928,101 +31872,46 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _socialProfiles = _interopRequireDefault(require("../data/socialProfiles"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Profile =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Profile, _Component);
-
-  function Profile() {
-    _classCallCheck(this, Profile);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Profile).apply(this, arguments));
-  }
-
-  _createClass(Profile, [{
-    key: "render",
-    value: function render() {
-      var _this$props$profile = this.props.profile,
-          title = _this$props$profile.title,
-          description = _this$props$profile.description,
-          image = _this$props$profile.image,
-          link = _this$props$profile.link;
-      return _react.default.createElement("div", {
-        style: {
-          margin: 10
-        }
-      }, _react.default.createElement("a", {
-        href: link
-      }, _react.default.createElement("img", {
-        src: image,
-        style: {
-          width: 40
-        }
-      })));
+var Profile = function Profile(props) {
+  var _props$profile = props.profile,
+      title = _props$profile.title,
+      description = _props$profile.description,
+      image = _props$profile.image,
+      link = _props$profile.link;
+  return _react.default.createElement("div", {
+    style: {
+      margin: 10
     }
-  }]);
-
-  return Profile;
-}(_react.Component);
-
-var Profiles =
-/*#__PURE__*/
-function (_Component2) {
-  _inherits(Profiles, _Component2);
-
-  function Profiles() {
-    _classCallCheck(this, Profiles);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Profiles).apply(this, arguments));
-  }
-
-  _createClass(Profiles, [{
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Connect with me!"), _react.default.createElement("div", {
-        style: {
-          display: 'flex',
-          flexDirection: 'row'
-        }
-      }, _socialProfiles.default.map(function (PROFILE) {
-        return _react.default.createElement("div", null, _react.default.createElement(Profile, {
-          key: PROFILE.id,
-          profile: PROFILE
-        }));
-      })));
+  }, _react.default.createElement("a", {
+    href: link
+  }, _react.default.createElement("img", {
+    src: image,
+    style: {
+      width: 40
     }
-  }]);
+  })));
+};
 
-  return Profiles;
-}(_react.Component);
+var Profiles = function Profiles() {
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Connect with me!"), _react.default.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'row'
+    }
+  }, _socialProfiles.default.map(function (PROFILE) {
+    return _react.default.createElement("div", {
+      key: PROFILE.id
+    }, _react.default.createElement(Profile, {
+      profile: PROFILE
+    }));
+  })));
+};
 
 var _default = Profiles;
 exports.default = _default;
@@ -32230,7 +32119,7 @@ function (_Component) {
         src: _profile.default,
         alt: "profile picture",
         className: "profile"
-      }), _react.default.createElement("h1", null, "Hello!"), _react.default.createElement("p", null, "My name is Alex"), this.state.displayBio ? _react.default.createElement(_Title.default, null) : null, this.state.displayBio ? _react.default.createElement("div", null, _react.default.createElement("p", null, "I live in Fukuoka, and I code every day"), _react.default.createElement("p", null, "My favorite language is Python"), _react.default.createElement("p", null, "Besides coding I like learning new languages"), _react.default.createElement("div", null, _react.default.createElement("button", {
+      }), _react.default.createElement("h1", null, "Hello!"), _react.default.createElement("p", null, "My name is Alex"), _react.default.createElement(_Title.default, null), this.state.displayBio ? _react.default.createElement("div", null, _react.default.createElement("p", null, "I live in Stockholm, and I code every day"), _react.default.createElement("p", null, "My favorite language is Python"), _react.default.createElement("p", null, "Besides coding I like learning new languages"), _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.toggleDisplayBio
       }, "Show less"))) : _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.toggleDisplayBio
@@ -32357,7 +32246,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52616" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56189" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
