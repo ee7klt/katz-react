@@ -19,3 +19,37 @@ h1, h2, h3, h4, h5 {
   font-family: EconomicaBold;
   src: url(assets/economica-bold.ttf);
 }
+
+.track {
+  width:250px;
+  height:250px;
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.track-image {
+  width:250px;
+  height:250px;
+}
+
+.track-text {
+  position: absolute;
+  width:250px;
+  bottom:0px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+}
+
+.track-icon {
+  position: absolute;
+  width:250px;
+  top: 77px;
+}
+
+.material-large {
+  font-size: 96px;
+  opacity: 60%;
+}

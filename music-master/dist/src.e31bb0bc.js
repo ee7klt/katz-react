@@ -31809,6 +31809,22 @@ function (_Component) {
       audio: null
     });
 
+    _defineProperty(_assertThisInitialized(_this), "trackIcon", function (track) {
+      if (!_this.state.playing) {
+        return _react.default.createElement("i", {
+          className: "material-icons material-large"
+        }, "play_circle_outline");
+      } else if (track.id === _this.state.currentTrack) {
+        return _react.default.createElement("i", {
+          className: "material-icons material-large"
+        }, "pause_circle_outline");
+      } else {
+        return _react.default.createElement("i", {
+          className: "material-icons material-large"
+        }, "play_circle_outline");
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "toggleAudio", function (id, previewUrl) {
       return function () {
         if (id !== _this.state.currentTrack) {
@@ -31860,18 +31876,17 @@ function (_Component) {
             preview_url = track.preview_url;
         return _react.default.createElement("div", {
           key: id,
-          style: {
-            display: 'flex'
-          },
+          className: "track",
           onClick: _this2.toggleAudio(id, preview_url)
         }, _react.default.createElement("img", {
-          style: {
-            width: 30,
-            height: 30
-          },
+          className: "track-image",
           src: album.images[0].url,
           alt: "track-album-image"
-        }), _react.default.createElement("p", null, name));
+        }), _react.default.createElement("p", {
+          className: "track-text"
+        }, name), _react.default.createElement("p", {
+          className: "track-icon"
+        }, _this2.trackIcon(track)));
       }));
     }
   }]);
@@ -32069,6 +32084,11 @@ function (_Component) {
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.searchArtist('radiohead');
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Music Master"), _react.default.createElement(_Search.default, {
@@ -32199,7 +32219,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63156" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57321" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

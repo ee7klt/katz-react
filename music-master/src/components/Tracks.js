@@ -1,11 +1,28 @@
 import React, {Component} from 'react';
 
-
-
-
-
 class Tracks extends Component {
   state = {currentTrack: null ,playing: false, audio: null};
+
+
+  trackIcon = (track) => {
+
+    if (!this.state.playing) {
+    return (
+      <i className="material-icons material-large">play_circle_outline</i>
+    )
+      }
+    else if (track.id === this.state.currentTrack){
+      return (
+        <i className="material-icons material-large">pause_circle_outline</i>
+      )
+  }
+  else {
+    return (
+      <i className="material-icons material-large">play_circle_outline</i>
+    )
+
+}
+  }
 
   toggleAudio = (id, previewUrl) => () => {
     if (id !== this.state.currentTrack) {
@@ -38,19 +55,15 @@ class Tracks extends Component {
           return (
             <div
               key = {id}
-              style = {{
-                display: 'flex'
-              }}
+              className='track'
               onClick = {this.toggleAudio(id,preview_url)}
             >
               <img
-                style = {{
-                  width: 30,
-                  height: 30
-                }}
+                className='track-image'
                 src={album.images[0].url} alt='track-album-image'
               />
-              <p>{name}</p>
+              <p className='track-text'>{name}</p>
+              <p className='track-icon'>{this.trackIcon(track)}</p>
             </div>
           )
         })

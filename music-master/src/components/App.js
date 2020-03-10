@@ -7,7 +7,9 @@ import Search from './Search';
 class App extends Component {
   state = { artist: null, tracks: []};
 
-
+  componentDidMount() {
+    this.searchArtist('radiohead')
+  }
 
   searchArtist = artistQuery =>  {
     fetch(`${API_ADDRESS}/artist/${artistQuery}`)
