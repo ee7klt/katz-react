@@ -29,6 +29,8 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
 }
 
+
+
 .track-image {
   width:250px;
   height:250px;
@@ -41,6 +43,7 @@ h1, h2, h3, h4, h5 {
   background-color: black;
   color: white;
   padding: 5px;
+
 }
 
 .track-icon {

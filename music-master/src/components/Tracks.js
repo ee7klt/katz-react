@@ -5,23 +5,23 @@ class Tracks extends Component {
 
 
   trackIcon = (track) => {
-
-    if (!this.state.playing) {
-    return (
-      <i className="material-icons material-large">play_circle_outline</i>
-    )
-      }
-    else if (track.id === this.state.currentTrack){
+    if (track.preview_url == null) {
       return (
-        <i className="material-icons material-large">pause_circle_outline</i>
+        <span>N/A</span>
       )
-  }
-  else {
+    }
+
+    if (
+      this.state.playing &&
+      (track.id === this.state.currentTrack)
+    ) {
+    return (
+      <i className="material-icons material-large">pause_circle_outline</i>
+    )}
+
     return (
       <i className="material-icons material-large">play_circle_outline</i>
     )
-
-}
   }
 
   toggleAudio = (id, previewUrl) => () => {

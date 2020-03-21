@@ -1,0 +1,125 @@
+body {
+   text-align: center;
+   font-size: 20px;
+   padding: 2.5%;
+   font-family: RobotoCondensed;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: EconomicaBold;
+}
+
+@font-face {
+  font-family: RobotoCondensed;
+  src: url(/roboto-condensed.light.6709adf4.ttf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: EconomicaBold;
+  src: url(/economica-bold.12a9e27d.ttf);
+}
+
+.profile {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+}
+
+.title-fade-out {
+  opacity:0;
+  animation-name: fade-out;
+  animation-duration: 2s;
+}
+
+.title-fade-in {
+  opacity:100;
+  animation-name: fade-in;
+  animation-duration: 2s;
+}
+
+@keyframes fade-out {
+  from {opacity: 100}
+  to {opacity: 0}
+}
+
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 100}
+}
+
+
+@keyframes fade-in-out {
+  from {opacity: 0}
+  50% {opacity:100}
+  to {opacity: 0}
+}
+
+.title-fade-in-out {
+  opacity:0;
+  animation-name: fade-in-out;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+body {
+   text-align: center;
+   font-size: 20px;
+   padding: 2.5%;
+   font-family: RobotoCondensed;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: EconomicaBold;
+}
+
+@font-face {
+  font-family: RobotoCondensed;
+  src: url(/roboto-condensed.light.dc1ca484.ttf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: EconomicaBold;
+  src: url(/economica-bold.4b753017.ttf);
+}
+
+.track {
+  width:250px;
+  height:250px;
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  cursor: pointer;
+}
+
+
+
+.track-image {
+  width:250px;
+  height:250px;
+}
+
+.track-text {
+  position: absolute;
+  width:250px;
+  bottom:0px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+
+}
+
+.track-icon {
+  position: absolute;
+  width:250px;
+  top: 77px;
+}
+
+.material-large {
+  font-size: 96px;
+  opacity: 60%;
+}
+
+
+/*# sourceMappingURL=/src.e31bb0bc.css.map */
