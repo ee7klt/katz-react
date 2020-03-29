@@ -32523,6 +32523,12 @@ var _redux = require("redux");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false
@@ -32534,21 +32540,20 @@ var rootReducer = function rootReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_SETTINGS;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  if (action.type === 'SET_GAME_STARTED') {
-    return {
-      gameStarted: action.gameStarted,
-      instructionsExpanded: state.instructionsExpanded
-    };
-  }
+  switch (action.type) {
+    case SET_GAME_STARTED:
+      return _objectSpread({}, state, {
+        gameStarted: action.gameStarted
+      });
 
-  if (action.type === 'SET_INSTRUCTIONS_EXPANDED') {
-    return {
-      gameStarted: state.gameStarted,
-      instructionsExpanded: true
-    };
-  }
+    case SET_INSTRUCTIONS_EXPANDED:
+      return _objectSpread({}, state, {
+        instructionsExpanded: action.instructionsExpanded
+      });
 
-  return state;
+    default:
+      return state;
+  }
 };
 
 var store = (0, _redux.createStore)(rootReducer);
@@ -32586,7 +32591,7 @@ var cancelInstructions = function cancelInstructions() {
 
 console.log(store.getState());
 store.dispatch(startGame());
-store.dispatch(instructionsExpanded());
+store.dispatch(expandInstructions());
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById('root'));
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","redux":"../node_modules/redux/es/redux.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -32616,7 +32621,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55365" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56375" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

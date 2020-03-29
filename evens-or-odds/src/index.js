@@ -13,19 +13,19 @@ const SET_INSTRUCTIONS_EXPANDED = 'SET_INSTRUCTIONS_EXPANDED';
 
 
 const rootReducer = (state = DEFAULT_SETTINGS, action) => {
-  if (action.type === 'SET_GAME_STARTED') {
-    return {
-      gameStarted: action.gameStarted,
-      instructionsExpanded: state.instructionsExpanded
-    }
+  switch (action.type) {
+    case SET_GAME_STARTED:
+      return {
+        ...state, gameStarted: action.gameStarted
+      }
+    case SET_INSTRUCTIONS_EXPANDED:
+      return {
+        ...state,
+        instructionsExpanded: action.instructionsExpanded
+      }
+    default:
+      return state;
   }
-  if (action.type === 'SET_INSTRUCTIONS_EXPANDED') {
-    return {
-      gameStarted: state.gameStarted,
-      instructionsExpanded: true
-    }
-  }
-  return state;
 }
 const store = createStore(rootReducer);
 store.subscribe(() => console.log('store.getState()', store.getState()))
@@ -48,7 +48,7 @@ const cancelInstructions = () => {
 
 console.log(store.getState())
 store.dispatch(startGame());
-store.dispatch(instructionsExpanded());
+store.dispatch(expandInstructions());
 
 
 
