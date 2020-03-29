@@ -32510,18 +32510,26 @@ function isCrushed() {}
 if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
-},{"symbol-observable":"../node_modules/symbol-observable/es/index.js"}],"index.js":[function(require,module,exports) {
+},{"symbol-observable":"../node_modules/symbol-observable/es/index.js"}],"actions/types.js":[function(require,module,exports) {
 "use strict";
 
-var _react = _interopRequireDefault(require("react"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SET_INSTRUCTIONS_EXPANDED = exports.SET_GAME_STARTED = void 0;
+var SET_GAME_STARTED = 'SET_GAME_STARTED';
+exports.SET_GAME_STARTED = SET_GAME_STARTED;
+var SET_INSTRUCTIONS_EXPANDED = 'SET_INSTRUCTIONS_EXPANDED';
+exports.SET_INSTRUCTIONS_EXPANDED = SET_INSTRUCTIONS_EXPANDED;
+},{}],"reducers/index.js":[function(require,module,exports) {
+"use strict";
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-var _App = _interopRequireDefault(require("./components/App"));
-
-var _redux = require("redux");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _types = require("../actions/types");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -32533,20 +32541,18 @@ var DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false
 };
-var SET_GAME_STARTED = 'SET_GAME_STARTED';
-var SET_INSTRUCTIONS_EXPANDED = 'SET_INSTRUCTIONS_EXPANDED';
 
 var rootReducer = function rootReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_SETTINGS;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case SET_GAME_STARTED:
+    case _types.SET_GAME_STARTED:
       return _objectSpread({}, state, {
         gameStarted: action.gameStarted
       });
 
-    case SET_INSTRUCTIONS_EXPANDED:
+    case _types.SET_INSTRUCTIONS_EXPANDED:
       return _objectSpread({}, state, {
         instructionsExpanded: action.instructionsExpanded
       });
@@ -32556,45 +32562,82 @@ var rootReducer = function rootReducer() {
   }
 };
 
-var store = (0, _redux.createStore)(rootReducer);
-store.subscribe(function () {
-  return console.log('store.getState()', store.getState());
+var _default = rootReducer;
+exports.default = _default;
+},{"../actions/types":"actions/types.js"}],"actions/settings.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.collapseInstructions = exports.expandInstructions = exports.cancelGame = exports.startGame = void 0;
+
+var _types = require("./types");
 
 var startGame = function startGame() {
   return {
     gameStarted: true,
-    type: SET_GAME_STARTED
+    type: _types.SET_GAME_STARTED
   };
 };
+
+exports.startGame = startGame;
 
 var cancelGame = function cancelGame() {
   return {
     gameStarted: false,
-    type: SET_GAME_STARTED
+    type: _types.SET_GAME_STARTED
   };
 };
+
+exports.cancelGame = cancelGame;
 
 var expandInstructions = function expandInstructions() {
   return {
     instructionsExpanded: true,
-    type: SET_INSTRUCTIONS_EXPANDED
+    type: _types.SET_INSTRUCTIONS_EXPANDED
   };
 };
 
-var cancelInstructions = function cancelInstructions() {
+exports.expandInstructions = expandInstructions;
+
+var collapseInstructions = function collapseInstructions() {
   return {
     instructionsExpanded: false,
-    type: SET_INSTRUCTIONS_EXPANDED
+    type: _types.SET_INSTRUCTIONS_EXPANDED
   };
 };
 
+exports.collapseInstructions = collapseInstructions;
+},{"./types":"actions/types.js"}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _App = _interopRequireDefault(require("./components/App"));
+
+var _redux = require("redux");
+
+var _index = _interopRequireDefault(require("./reducers/index"));
+
+var _settings = require("./actions/settings");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var store = (0, _redux.createStore)(_index.default);
+store.subscribe(function () {
+  return console.log('store.getState()', store.getState());
+});
 console.log(store.getState());
-store.dispatch(startGame());
-store.dispatch(expandInstructions());
+store.dispatch((0, _settings.startGame)());
+store.dispatch((0, _settings.expandInstructions)());
+store.dispatch((0, _settings.cancelGame)());
+store.dispatch((0, _settings.collapseInstructions)());
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","redux":"../node_modules/redux/es/redux.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","redux":"../node_modules/redux/es/redux.js","./reducers/index":"reducers/index.js","./actions/settings":"actions/settings.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32621,7 +32664,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56375" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59716" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
