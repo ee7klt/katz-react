@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import rootReducer from './reducers/index';
 import {startGame, cancelGame, expandInstructions, collapseInstructions} from './actions/settings';
@@ -11,14 +12,14 @@ store.subscribe(() => console.log('store.getState()', store.getState()))
 
 
 
-console.log(store.getState())
-store.dispatch(startGame());
-store.dispatch(expandInstructions());
-store.dispatch(cancelGame());
-store.dispatch(collapseInstructions());
 
 
 
-ReactDOM.render(<App />,
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+,
   document.getElementById('root')
 );
