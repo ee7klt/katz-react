@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {cancelGame,startGame,expandInstructions,collapseInstructions} from '../actions/settings';
-import Instructions from './Instructions';
+import {cancelGame,startGame} from '../actions/settings';
+
 
 
 class App extends Component {
@@ -27,19 +27,7 @@ class App extends Component {
           </div>
         )
       }
-      {
-        <div>
-        {
-          this.props.instructionsExpanded ?
-          <div>
-            <Instructions />
-              <button onClick={this.props.collapseInstructions}>Collapse instructions</button>
-          </div> :
-          <button onClick={this.props.expandInstructions}>Expand instructions</button>
 
-        }
-        </div>
-      }
       </div>
 
     )
@@ -50,17 +38,14 @@ class App extends Component {
 const mapStateToProps = state => {
   console.log('state',state);
   return {
-    gameStarted: state.gameStarted,
-    instructionsExpanded: state.instructionsExpanded
+    gameStarted: state.gameStarted
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     startGame: () => dispatch(startGame()),
-    cancelGame: () => dispatch(cancelGame()),
-    expandInstructions: () => dispatch(expandInstructions()),
-    collapseInstructions: () => dispatch(collapseInstructions())
+    cancelGame: () => dispatch(cancelGame())
   }
 }
 

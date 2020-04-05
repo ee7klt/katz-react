@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import Instructions from './components/Instructions';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import rootReducer from './reducers/index';
@@ -14,6 +15,7 @@ store.subscribe(() => console.log('store.getState()', store.getState()))
 ReactDOM.render(
   <Provider store={store}>
     <App />
+    <Instructions />
   </Provider>
 ,
   document.getElementById('root')
