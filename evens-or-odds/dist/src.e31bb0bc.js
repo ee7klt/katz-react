@@ -34595,7 +34595,25 @@ var collapseInstructions = function collapseInstructions() {
 };
 
 exports.collapseInstructions = collapseInstructions;
-},{"./types":"actions/types.js"}],"components/App.js":[function(require,module,exports) {
+},{"./types":"actions/types.js"}],"components/Instructions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Instructions = function Instructions() {
+  return _react.default.createElement("div", null, _react.default.createElement("p", null, "Instructions go here "));
+};
+
+var _default = Instructions;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34608,6 +34626,10 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 
 var _settings = require("../actions/settings");
+
+var _Instructions = _interopRequireDefault(require("./Instructions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -34650,7 +34672,11 @@ function (_Component) {
         onClick: this.props.cancelGame
       }, "Cancel Game")) : _react.default.createElement("div", null, _react.default.createElement("h3", null, "A new game awaits"), _react.default.createElement("br", null), _react.default.createElement("button", {
         onClick: this.props.startGame
-      }, "Start Game")));
+      }, "Start Game")), _react.default.createElement("div", null, this.props.instructionsExpanded ? _react.default.createElement("div", null, _react.default.createElement(_Instructions.default, null), _react.default.createElement("button", {
+        onClick: this.props.collapseInstructions
+      }, "Collapse instructions")) : _react.default.createElement("button", {
+        onClick: this.props.expandInstructions
+      }, "Expand instructions")));
     }
   }]);
 
@@ -34660,7 +34686,8 @@ function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
   console.log('state', state);
   return {
-    gameStarted: state.gameStarted
+    gameStarted: state.gameStarted,
+    instructionsExpanded: state.instructionsExpanded
   };
 };
 
@@ -34671,6 +34698,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     cancelGame: function cancelGame() {
       return dispatch((0, _settings.cancelGame)());
+    },
+    expandInstructions: function expandInstructions() {
+      return dispatch((0, _settings.expandInstructions)());
+    },
+    collapseInstructions: function collapseInstructions() {
+      return dispatch((0, _settings.collapseInstructions)());
     }
   };
 };
@@ -34680,7 +34713,7 @@ var componentConnector = (0, _reactRedux.connect)(mapStateToProps, mapDispatchTo
 var _default = componentConnector(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js"}],"reducers/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js","./Instructions":"components/Instructions.js"}],"reducers/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34738,8 +34771,6 @@ var _redux = require("redux");
 
 var _index = _interopRequireDefault(require("./reducers/index"));
 
-var _settings = require("./actions/settings");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _redux.createStore)(_index.default);
@@ -34750,7 +34781,7 @@ store.subscribe(function () {
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
 }, _react.default.createElement(_App.default, null)), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index":"reducers/index.js","./actions/settings":"actions/settings.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index":"reducers/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -34777,7 +34808,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59260" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54790" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
