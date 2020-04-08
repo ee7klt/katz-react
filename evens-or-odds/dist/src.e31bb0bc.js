@@ -34645,9 +34645,15 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Evens or Odds"), this.props.gameStarted ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "The game is on!"), _react.default.createElement("br", null), _react.default.createElement("button", {
+      return _react.default.createElement("div", {
+        className: "container-fluid"
+      }, _react.default.createElement("h2", null, "Evens or Odds"), this.props.gameStarted ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "The game is on!"), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
         onClick: this.props.cancelGame
       }, "Cancel Game")) : _react.default.createElement("div", null, _react.default.createElement("h3", null, "A new game awaits"), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
         onClick: this.props.startGame
       }, "Start Game")));
     }
@@ -34673,9 +34679,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var componentConnector = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps);
-
-var _default = componentConnector(App);
+var _default = (0, _reactRedux.connect)(function (state) {
+  return {
+    gameStarted: state.gameStarted
+  };
+}, {
+  startGame: _settings.startGame,
+  cancelGame: _settings.cancelGame
+})(App);
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js"}],"components/Instructions.js":[function(require,module,exports) {
@@ -34700,11 +34711,17 @@ var Instructions = function Instructions(props) {
   var instructionsExpanded = props.instructionsExpanded,
       expandInstructions = props.expandInstructions,
       collapseInstructions = props.collapseInstructions;
-  return _react.default.createElement("div", null, instructionsExpanded ? _react.default.createElement("div", null, _react.default.createElement("p", null, "Guess even or odd"), _react.default.createElement("button", {
+  return _react.default.createElement("div", {
+    className: "container-fluid"
+  }, instructionsExpanded ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "Instructions"), _react.default.createElement("p", null, "Welcome to evens or odds. The game goes like this. "), _react.default.createElement("p", null, "The deck is shuffled. Then choose: will the next card be even or odd?"), _react.default.createElement("p", null, "Make a choice on every draw, and see how many you get right"), _react.default.createElement("button", {
+    type: "button",
+    className: "btn btn-primary",
     onClick: collapseInstructions
-  }, "Collapse instructions")) : _react.default.createElement("button", {
+  }, "Show less")) : _react.default.createElement("div", null, _react.default.createElement("h3", null, "Instructions"), _react.default.createElement("p", null, "Welcome to evens or odds. The game goes like this ... "), _react.default.createElement("button", {
+    type: "button",
+    className: "btn btn-primary",
     onClick: expandInstructions
-  }, "Expand instructions"));
+  }, "Show more")));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -34724,9 +34741,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var componentConnector = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps);
-
-var _default = componentConnector(Instructions);
+var _default = (0, _reactRedux.connect)(function (state) {
+  return {
+    instructionsExpanded: state.instructionsExpanded
+  };
+}, {
+  expandInstructions: _settings.expandInstructions,
+  collapseInstructions: _settings.collapseInstructions
+})(Instructions);
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js"}],"reducers/index.js":[function(require,module,exports) {
@@ -34826,7 +34848,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49604" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61467" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

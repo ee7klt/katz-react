@@ -6,14 +6,21 @@ import {expandInstructions,collapseInstructions} from '../actions/settings';
 const Instructions  = props  => {
   const {instructionsExpanded,expandInstructions,collapseInstructions} = props;
   return (
-    <div>
+  <div className='container-fluid'>
     {
       instructionsExpanded ?
       <div>
-        <p>Guess even or odd</p>
-          <button onClick={collapseInstructions}>Collapse instructions</button>
+      <h3>Instructions</h3>
+      <p>Welcome to evens or odds. The game goes like this. </p>
+      <p>The deck is shuffled. Then choose: will the next card be even or odd?</p>
+      <p>Make a choice on every draw, and see how many you get right</p>
+          <button  type="button" className="btn btn-primary" onClick={collapseInstructions}>Show less</button>
       </div> :
-      <button onClick={expandInstructions}>Expand instructions</button>
+      <div >
+      <h3>Instructions</h3>
+      <p>Welcome to evens or odds. The game goes like this ... </p>
+      <button type="button" className="btn btn-primary" onClick={expandInstructions}>Show more</button>
+      </div>
     }
     </div>
   )
@@ -35,7 +42,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const componentConnector = connect(mapStateToProps, mapDispatchToProps);
 
-
-export default componentConnector(Instructions);
+export default connect(
+  state => ({instructionsExpanded: state.instructionsExpanded}),
+  {expandInstructions, collapseInstructions}
+)(Instructions);
