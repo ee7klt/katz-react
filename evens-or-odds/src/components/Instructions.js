@@ -3,23 +3,23 @@ import {connect} from 'react-redux';
 import {expandInstructions,collapseInstructions} from '../actions/settings';
 
 
-class Instructions extends Component {
-  render() {
-    return (
+const Instructions  = props  => {
+  const {instructionsExpanded,expandInstructions,collapseInstructions} = props;
+  return (
+    <div>
+    {
+      instructionsExpanded ?
       <div>
-      {
-        this.props.instructionsExpanded ?
-        <div>
-          <p>Guess even or odd</p>
-            <button onClick={this.props.collapseInstructions}>Collapse instructions</button>
-        </div> :
-        <button onClick={this.props.expandInstructions}>Expand instructions</button>
-
-      }
-      </div>
-    )
-  }
+        <p>Guess even or odd</p>
+          <button onClick={collapseInstructions}>Collapse instructions</button>
+      </div> :
+      <button onClick={expandInstructions}>Expand instructions</button>
+    }
+    </div>
+  )
 }
+
+
 
 
 const mapStateToProps = state => {

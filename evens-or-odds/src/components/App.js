@@ -8,7 +8,6 @@ class App extends Component {
 
 
   render() {
-    console.log('this',this);
     return (
       <div >
       <h2>Evens or Odds</h2>
@@ -36,7 +35,6 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-  console.log('state',state);
   return {
     gameStarted: state.gameStarted
   }
