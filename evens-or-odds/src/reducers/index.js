@@ -31,11 +31,8 @@ const rootReducer = (state = DEFAULT_SETTINGS, action) => {
         instructionsExpanded: action.instructionsExpanded
       }
     case FETCH_DECK_RESULT:
-      return {
-        ...state,
-        remaining: action.remaining,
-        deck_id: action.deck_id
-      }
+      const {remaining, deck_id} = action;
+      return {  ...state,  remaining,deck_id};
     default:
       return state;
   }

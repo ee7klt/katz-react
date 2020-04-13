@@ -17,7 +17,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
     <Instructions />
-    <FetchDeck />
+
   </Provider>
 ,
   document.getElementById('root')
