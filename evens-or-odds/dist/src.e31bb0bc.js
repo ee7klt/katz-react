@@ -34603,7 +34603,7 @@ exports.collapseInstructions = collapseInstructions;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchDeckResult = void 0;
+exports.fetchNewDeck = exports.fetchDeckResult = void 0;
 
 var _types = require("./types");
 
@@ -34618,6 +34618,16 @@ var fetchDeckResult = function fetchDeckResult(deckJson) {
 };
 
 exports.fetchDeckResult = fetchDeckResult;
+
+var fetchNewDeck = function fetchNewDeck() {
+  return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
+    return response.json();
+  }).then(function (json) {
+    return fetchDeckResult(json);
+  });
+};
+
+exports.fetchNewDeck = fetchNewDeck;
 },{"./types":"actions/types.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -34677,13 +34687,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "startGame", function () {
-      fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this.props.fetchDeckResult(json);
-      }).then(function (x) {
-        return _this.props.startGame();
-      });
+      _this.props.fetchNewDeck();
+
+      _this.props.startGame();
     });
 
     return _this;
@@ -34723,8 +34729,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     cancelGame: function cancelGame() {
       return dispatch((0, _settings.cancelGame)());
     },
-    fetchDeckResult: function fetchDeckResult(deckJson) {
-      return dispatch((0, _deck.fetchDeckResult)(deckJson));
+    fetchNewDeck: function fetchNewDeck() {
+      return (0, _deck.fetchNewDeck)().then(function (json) {
+        return dispatch(json);
+      });
     }
   };
 };
@@ -34993,7 +35001,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56834" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56766" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
