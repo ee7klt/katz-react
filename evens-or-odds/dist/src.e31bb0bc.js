@@ -34620,11 +34620,13 @@ var fetchDeckResult = function fetchDeckResult(deckJson) {
 exports.fetchDeckResult = fetchDeckResult;
 
 var fetchNewDeck = function fetchNewDeck() {
-  return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
-    return response.json();
-  }).then(function (json) {
-    return fetchDeckResult(json);
-  });
+  return function (dispatch) {
+    return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      return dispatch(fetchDeckResult(json));
+    });
+  };
 };
 
 exports.fetchNewDeck = fetchNewDeck;
@@ -34730,9 +34732,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0, _settings.cancelGame)());
     },
     fetchNewDeck: function fetchNewDeck() {
-      return (0, _deck.fetchNewDeck)().then(function (json) {
-        return dispatch(json);
-      });
+      return dispatch((0, _deck.fetchNewDeck)());
     }
   };
 };
@@ -34945,7 +34945,35 @@ var rootReducer = function rootReducer() {
 
 var _default = rootReducer;
 exports.default = _default;
-},{"../actions/types":"actions/types.js"}],"index.js":[function(require,module,exports) {
+},{"../actions/types":"actions/types.js"}],"../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+var _default = thunk;
+exports.default = _default;
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -34964,9 +34992,11 @@ var _redux = require("redux");
 
 var _index = _interopRequireDefault(require("./reducers/index"));
 
+var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_index.default);
+var store = (0, _redux.createStore)(_index.default, (0, _redux.applyMiddleware)(_reduxThunk.default));
 store.subscribe(function () {
   return console.log('store.getState()', store.getState());
 });
@@ -34974,7 +35004,7 @@ store.subscribe(function () {
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
 }, _react.default.createElement(_App.default, null), _react.default.createElement(_Instructions.default, null)), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/Instructions":"components/Instructions.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index":"reducers/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/Instructions":"components/Instructions.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index":"reducers/index.js","redux-thunk":"../node_modules/redux-thunk/es/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35001,7 +35031,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56766" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50989" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

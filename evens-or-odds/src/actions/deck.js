@@ -5,8 +5,8 @@ export const fetchDeckResult = deckJson => {
   return {remaining, deck_id, type: FETCH_DECK_RESULT};
 }
 
-export const fetchNewDeck = () => {
+export const fetchNewDeck = () => dispatch => {
   return  fetch('http://deckofcardsapi.com/api/deck/new/shuffle/')
   .then(response => response.json())
-  .then(json => fetchDeckResult(json))
+  .then(json => dispatch(fetchDeckResult(json)))
 }
