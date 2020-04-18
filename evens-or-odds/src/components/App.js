@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => {
   return {
     startGame: () => dispatch(startGame()),
     cancelGame: () => dispatch(cancelGame()),
-    fetchNewDeck: () => dispatch(fetchNewDeck())
+    fetchNewDeck: () => fetchNewDeck(dispatch)
   }
 }
 

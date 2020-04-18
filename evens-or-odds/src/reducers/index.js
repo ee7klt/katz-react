@@ -2,16 +2,17 @@
 import {
   SET_GAME_STARTED,
   SET_INSTRUCTIONS_EXPANDED,
-  FETCH_DECK_RESULT
+  DECK
 } from '../actions/types';
 
-
+const {FETCH_SUCCESS,FETCH_ERROR} = DECK;
 
 const DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false,
   deck_id: null,
-  remaining: null
+  remaining: null,
+  error: null
 }
 
 
@@ -30,9 +31,11 @@ const rootReducer = (state = DEFAULT_SETTINGS, action) => {
         ...state,
         instructionsExpanded: action.instructionsExpanded
       }
-    case FETCH_DECK_RESULT:
+    case FETCH_SUCCESS:
       const {remaining, deck_id} = action;
       return {  ...state,  remaining,deck_id};
+    case FETCH_ERROR:
+      return {  ...state,  ...action};
     default:
       return state;
   }

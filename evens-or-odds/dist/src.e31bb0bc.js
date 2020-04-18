@@ -34545,13 +34545,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FETCH_DECK_RESULT = exports.SET_INSTRUCTIONS_EXPANDED = exports.SET_GAME_STARTED = void 0;
+exports.DECK = exports.SET_INSTRUCTIONS_EXPANDED = exports.SET_GAME_STARTED = void 0;
 var SET_GAME_STARTED = 'SET_GAME_STARTED';
 exports.SET_GAME_STARTED = SET_GAME_STARTED;
 var SET_INSTRUCTIONS_EXPANDED = 'SET_INSTRUCTIONS_EXPANDED';
 exports.SET_INSTRUCTIONS_EXPANDED = SET_INSTRUCTIONS_EXPANDED;
-var FETCH_DECK_RESULT = 'FETCH_DECK_RESULT';
-exports.FETCH_DECK_RESULT = FETCH_DECK_RESULT;
+var DECK = {
+  FETCH_SUCCESS: 'DECK_FETCH_SUCCESS',
+  FETCH_ERROR: 'DECK_FETCH_ERROR'
+};
+exports.DECK = DECK;
 },{}],"actions/settings.js":[function(require,module,exports) {
 "use strict";
 
@@ -34603,30 +34606,40 @@ exports.collapseInstructions = collapseInstructions;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchNewDeck = exports.fetchDeckResult = void 0;
+exports.fetchNewDeck = void 0;
 
 var _types = require("./types");
 
-var fetchDeckResult = function fetchDeckResult(deckJson) {
+var FETCH_SUCCESS = _types.DECK.FETCH_SUCCESS,
+    FETCH_ERROR = _types.DECK.FETCH_ERROR;
+
+var fetchDeckSuccess = function fetchDeckSuccess(deckJson) {
+  console.log('fetch deck success');
   var remaining = deckJson.remaining,
       deck_id = deckJson.deck_id;
   return {
     remaining: remaining,
     deck_id: deck_id,
-    type: _types.FETCH_DECK_RESULT
+    type: FETCH_SUCCESS
   };
 };
 
-exports.fetchDeckResult = fetchDeckResult;
-
-var fetchNewDeck = function fetchNewDeck() {
-  return function (dispatch) {
-    return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      return dispatch(fetchDeckResult(json));
-    });
+var fetchDeckError = function fetchDeckError(error) {
+  console.log('fetch deck error');
+  return {
+    error: error,
+    type: FETCH_ERROR
   };
+};
+
+var fetchNewDeck = function fetchNewDeck(dispatch) {
+  return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
+    return response.json();
+  }).then(function (json) {
+    return dispatch(fetchDeckSuccess(json));
+  }).catch(function (error) {
+    return fetchDeckError(error);
+  });
 };
 
 exports.fetchNewDeck = fetchNewDeck;
@@ -34732,7 +34745,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0, _settings.cancelGame)());
     },
     fetchNewDeck: function fetchNewDeck() {
-      return dispatch((0, _deck.fetchNewDeck)());
+      return (0, _deck.fetchNewDeck)(dispatch);
     }
   };
 };
@@ -34908,11 +34921,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var FETCH_SUCCESS = _types.DECK.FETCH_SUCCESS,
+    FETCH_ERROR = _types.DECK.FETCH_ERROR;
 var DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false,
   deck_id: null,
-  remaining: null
+  remaining: null,
+  error: null
 };
 
 var rootReducer = function rootReducer() {
@@ -34930,13 +34946,16 @@ var rootReducer = function rootReducer() {
         instructionsExpanded: action.instructionsExpanded
       });
 
-    case _types.FETCH_DECK_RESULT:
+    case FETCH_SUCCESS:
       var remaining = action.remaining,
           deck_id = action.deck_id;
       return _objectSpread({}, state, {
         remaining: remaining,
         deck_id: deck_id
       });
+
+    case FETCH_ERROR:
+      return _objectSpread({}, state, {}, action);
 
     default:
       return state;
@@ -35031,7 +35050,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50989" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50844" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
