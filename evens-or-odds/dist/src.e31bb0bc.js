@@ -34627,7 +34627,7 @@ var fetchDeckSuccess = function fetchDeckSuccess(deckJson) {
 var fetchDeckError = function fetchDeckError(error) {
   console.log('fetch deck error');
   return {
-    error: error,
+    message: error.message,
     type: FETCH_ERROR
   };
 };
@@ -34638,7 +34638,7 @@ var fetchNewDeck = function fetchNewDeck(dispatch) {
   }).then(function (json) {
     return dispatch(fetchDeckSuccess(json));
   }).catch(function (error) {
-    return fetchDeckError(error);
+    return dispatch(fetchDeckError(error));
   });
 };
 
@@ -34927,8 +34927,7 @@ var DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false,
   deck_id: null,
-  remaining: null,
-  error: null
+  remaining: null
 };
 
 var rootReducer = function rootReducer() {
@@ -34955,7 +34954,9 @@ var rootReducer = function rootReducer() {
       });
 
     case FETCH_ERROR:
-      return _objectSpread({}, state, {}, action);
+      return _objectSpread({}, state, {
+        message: action.message
+      });
 
     default:
       return state;
@@ -35050,7 +35051,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50844" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50917" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

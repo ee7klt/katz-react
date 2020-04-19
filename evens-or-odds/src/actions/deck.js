@@ -10,12 +10,12 @@ const {FETCH_SUCCESS,FETCH_ERROR} = DECK
 
 const fetchDeckError = error => {
      console.log('fetch deck error')
-  return {error, type: FETCH_ERROR};
+  return {message:error.message, type: FETCH_ERROR};
 }
 
 export const fetchNewDeck =  dispatch  => {
   return  fetch('http://deckofcardsapi.com/api/deck/new/shuffle/')
   .then(response => response.json())
   .then(json => dispatch(fetchDeckSuccess(json)))
-  .catch(error => fetchDeckError(error))
+  .catch(error => dispatch(fetchDeckError(error)))
 }

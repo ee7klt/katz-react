@@ -11,8 +11,7 @@ const DEFAULT_SETTINGS = {
   gameStarted: false,
   instructionsExpanded: false,
   deck_id: null,
-  remaining: null,
-  error: null
+  remaining: null
 }
 
 
@@ -35,7 +34,7 @@ const rootReducer = (state = DEFAULT_SETTINGS, action) => {
       const {remaining, deck_id} = action;
       return {  ...state,  remaining,deck_id};
     case FETCH_ERROR:
-      return {  ...state,  ...action};
+      return {  ...state,  message: action.message};
     default:
       return state;
   }
