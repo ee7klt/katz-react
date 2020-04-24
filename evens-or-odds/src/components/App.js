@@ -1,18 +1,37 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {cancelGame,startGame} from '../actions/settings';
+import {cancelGame} from '../actions/settings';
 import {fetchNewDeck} from '../actions/deck';
+import fetchStates from '../reducers/fetchStates';
 
 
 class App extends Component {
 
-  startGame = () => {
-    this.props.fetchNewDeck();
-    this.props.startGame();
-  }
+
 
   render() {
-    return (
+
+
+    if (this.props.isFetching) {
+      return (
+        <div className='container-fluid'>
+        <h2>Evens or Odds</h2>
+          <p>fetching post ...</p>
+        </div>
+      )
+    }
+
+    else if (this.props.fetchState === fetchStates.error) {
+      return (
+        <div className='container-fluid'>
+        <h2>Evens or Odds</h2>
+        <p>{this.props.message}</p>
+        </div>
+      )
+    }
+
+
+    else return (
       <div className='container-fluid'>
       <h2>Evens or Odds</h2>
       {
@@ -26,7 +45,7 @@ class App extends Component {
           <div>
           <h3>A new game awaits</h3>
           <br />
-          <button type="button" className="btn btn-primary" onClick={this.startGame}>Start Game</button>
+          <button type="button" className="btn btn-primary" onClick={this.props.fetchNewDeck}>Start Game</button>
           </div>
         )
       }
@@ -39,21 +58,20 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-  return {
-    gameStarted: state.gameStarted
-  }
+  const {gameStarted, fetchState, message, isFetching} = state;
+  return  {gameStarted, fetchState, message, isFetching};
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    startGame: () => dispatch(startGame()),
-    cancelGame: () => dispatch(cancelGame()),
-    fetchNewDeck: () => fetchNewDeck(dispatch)
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     startGame: () => dispatch(startGame()),
+//     cancelGame: () => dispatch(cancelGame()),
+//     fetchNewDeck: () => fetchNewDeck(dispatch)
+//   }
+// }
 
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {cancelGame, fetchNewDeck}
 )(App);
