@@ -31,7 +31,7 @@ const Instructions  = props  => {
 
 const mapStateToProps = state => {
   return {
-    instructionsExpanded: state.instructionsExpanded
+    instructionsExpanded: state.settings.instructionsExpanded
   }
 }
 
