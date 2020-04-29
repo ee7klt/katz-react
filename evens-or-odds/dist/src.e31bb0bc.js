@@ -34553,7 +34553,10 @@ exports.SET_INSTRUCTIONS_EXPANDED = SET_INSTRUCTIONS_EXPANDED;
 var DECK = {
   FETCH_SUCCESS: 'DECK_FETCH_SUCCESS',
   FETCH_ERROR: 'DECK_FETCH_ERROR',
-  FETCH_REQUEST: 'DECK_FETCH_REQUEST'
+  FETCH_REQUEST: 'DECK_FETCH_REQUEST',
+  DRAW_CARD_REQUEST: 'DRAW_CARD_REQUEST',
+  DRAW_CARD_ERROR: 'DRAW_CARD_ERROR',
+  DRAW_CARD_SUCCESS: 'DRAW_CARD_SUCCESS'
 };
 exports.DECK = DECK;
 },{}],"actions/settings.js":[function(require,module,exports) {
@@ -34607,7 +34610,7 @@ exports.collapseInstructions = collapseInstructions;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchNewDeck = void 0;
+exports.drawNewCard = exports.fetchNewDeck = void 0;
 
 var _types = require("./types");
 
@@ -34615,7 +34618,10 @@ var _settings = require("../actions/settings");
 
 var FETCH_SUCCESS = _types.DECK.FETCH_SUCCESS,
     FETCH_ERROR = _types.DECK.FETCH_ERROR,
-    FETCH_REQUEST = _types.DECK.FETCH_REQUEST;
+    FETCH_REQUEST = _types.DECK.FETCH_REQUEST,
+    DRAW_CARD_SUCCESS = _types.DECK.DRAW_CARD_SUCCESS,
+    DRAW_CARD_ERROR = _types.DECK.DRAW_CARD_ERROR,
+    DRAW_CARD_REQUEST = _types.DECK.DRAW_CARD_REQUEST;
 
 var fetchDeckSuccess = function fetchDeckSuccess(deckJson) {
   console.log('fetch deck success');
@@ -34644,6 +34650,32 @@ var fetchDeckRequest = function fetchDeckRequest() {
   };
 };
 
+var drawCardSuccess = function drawCardSuccess(_ref) {
+  var cards = _ref.cards,
+      remaining = _ref.remaining;
+  return {
+    remaining: remaining,
+    cards: cards,
+    isFetching: false,
+    type: DRAW_CARD_SUCCESS
+  };
+};
+
+var drawCardError = function drawCardError(error) {
+  return {
+    message: error.message,
+    isFetching: false,
+    type: DRAW_CARD_ERROR
+  };
+};
+
+var drawCardRequest = function drawCardRequest() {
+  return {
+    isFetching: true,
+    type: DRAW_CARD_REQUEST
+  };
+};
+
 var fetchNewDeck = function fetchNewDeck() {
   return function (dispatch) {
     dispatch(fetchDeckRequest());
@@ -34660,6 +34692,21 @@ var fetchNewDeck = function fetchNewDeck() {
 };
 
 exports.fetchNewDeck = fetchNewDeck;
+
+var drawNewCard = function drawNewCard() {
+  return function (dispatch) {
+    dispatch(drawCardRequest());
+    return fetch('https://deckofcardsapi.com/api/deck/b66bpdnx3yg0/draw/?count=1').then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      return dispatch(drawCardSuccess(json));
+    }).catch(function (error) {
+      return dispatch(drawCardError(error));
+    });
+  };
+};
+
+exports.drawNewCard = drawNewCard;
 },{"./types":"actions/types.js","../actions/settings":"actions/settings.js"}],"reducers/fetchStates.js":[function(require,module,exports) {
 "use strict";
 
@@ -34680,29 +34727,70 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _deck = require("../actions/deck");
 
-var DrawCard = function DrawCard(props) {
-  console.log('DrawCard props', props);
-  return _react.default.createElement("div", null, _react.default.createElement("button", {
-    type: "button",
-    className: "btn btn-primary"
-  }, "Draw the next card!"));
-};
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DrawCard =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(DrawCard, _Component);
+
+  function DrawCard() {
+    _classCallCheck(this, DrawCard);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(DrawCard).apply(this, arguments));
+  }
+
+  _createClass(DrawCard, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
+        onClick: this.props.drawNewCard
+      }, "Draw the next card!"));
+    }
+  }]);
+
+  return DrawCard;
+}(_react.Component);
 
 var _default = (0, _reactRedux.connect)(function (_ref) {
   var deck_id = _ref.deck.deck_id;
   return {
     deck_id: deck_id
   };
+}, {
+  drawNewCard: _deck.drawNewCard
 })(DrawCard);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js"}],"components/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/deck":"actions/deck.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35029,7 +35117,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var FETCH_SUCCESS = _types.DECK.FETCH_SUCCESS,
     FETCH_ERROR = _types.DECK.FETCH_ERROR,
-    FETCH_REQUEST = _types.DECK.FETCH_REQUEST;
+    FETCH_REQUEST = _types.DECK.FETCH_REQUEST,
+    DRAW_CARD_REQUEST = _types.DECK.DRAW_CARD_REQUEST,
+    DRAW_CARD_ERROR = _types.DECK.DRAW_CARD_ERROR,
+    DRAW_CARD_SUCCESS = _types.DECK.DRAW_CARD_SUCCESS;
 var success = _fetchStates.default.success,
     error = _fetchStates.default.error;
 var DEFAULT_DECK = {
@@ -35037,7 +35128,8 @@ var DEFAULT_DECK = {
   remaining: 0,
   isFetching: false,
   fetchState: '',
-  message: ''
+  message: '',
+  cards: []
 };
 
 var deckReducer = function deckReducer() {
@@ -35045,6 +35137,27 @@ var deckReducer = function deckReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case DRAW_CARD_REQUEST:
+      return _objectSpread({}, state, {
+        isFetching: action.isFetching
+      });
+
+    case DRAW_CARD_SUCCESS:
+      var cards = action.cards;
+      return _objectSpread({}, state, {
+        cards: cards,
+        fetchState: success,
+        message: null,
+        isFetching: false
+      });
+
+    case DRAW_CARD_ERROR:
+      return _objectSpread({}, state, {
+        message: action.message,
+        fetchState: error,
+        isFetching: false
+      });
+
     case FETCH_REQUEST:
       return _objectSpread({}, state, {
         isFetching: action.isFetching
@@ -35183,7 +35296,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53997" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52046" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

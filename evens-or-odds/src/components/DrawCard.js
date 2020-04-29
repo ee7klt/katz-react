@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {drawNewCard} from '../actions/deck';
 
-const DrawCard = props => {
-  console.log('DrawCard props', props);
+
+  class DrawCard extends Component {
+    render() {
   return (
     <div>
-    <button type="button" className="btn btn-primary">Draw the next card!</button>
+    <button type="button" className="btn btn-primary" onClick={this.props.drawNewCard} >Draw the next card!</button>
     </div>
   )
 }
+}
+
+
 
 export default connect(
-  ({deck: {deck_id}}) => ({deck_id})
+  ({deck: {deck_id}}) => ({deck_id}),
+  {drawNewCard}
 )(DrawCard);
