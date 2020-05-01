@@ -25,8 +25,8 @@ const deckReducer = (state = DEFAULT_DECK, action) => {
         isFetching: action.isFetching
       }
     case DRAW_CARD_SUCCESS:
-      const {cards} = action;
-      return {  ...state, cards, fetchState: success, message:null, isFetching: false};
+
+      return {  ...state,remaining: action.remaining, cards: action.cards, fetchState: success, message:null, isFetching: false};
     case DRAW_CARD_ERROR:
       return {
         ...state,

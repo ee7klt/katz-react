@@ -1,7 +1,7 @@
 import {DECK} from './types';
 const {FETCH_SUCCESS,FETCH_ERROR, FETCH_REQUEST, DRAW_CARD_SUCCESS,DRAW_CARD_ERROR, DRAW_CARD_REQUEST} = DECK
 import {startGame} from '../actions/settings';
-
+const API_ADDRESS = 'https://deckofcardsapi.com/api/deck'
 
  const fetchDeckSuccess = deckJson => {
    console.log('fetch deck success')
@@ -33,16 +33,16 @@ const drawCardRequest = () => {
 
 export const fetchNewDeck =  () => dispatch  => {
   dispatch(fetchDeckRequest())
-  return  fetch('http://deckofcardsapi.com/api/deck/new/shuffle/')
+  return  fetch(`${API_ADDRESS}/new/shuffle/`)
   .then(response => response.json() )
   .then(json => dispatch(fetchDeckSuccess(json)))
   .then(x => dispatch(startGame()))
   .catch(error => dispatch(fetchDeckError(error)))
 }
 
-export const drawNewCard =  () => (dispatch)  => {
+export const drawNewCard =  deck_id => (dispatch)  => {
   dispatch(drawCardRequest())
-  return  fetch('https://deckofcardsapi.com/api/deck/b66bpdnx3yg0/draw/?count=1')
+  return  fetch(`${API_ADDRESS}/${deck_id}/draw/?count=1`)
   .then(response => response.json() )
   .then(json => dispatch(drawCardSuccess(json)))
   .catch(error => dispatch(drawCardError(error)))

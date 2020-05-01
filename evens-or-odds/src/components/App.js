@@ -39,7 +39,7 @@ class App extends Component {
           <div>
             <h3>The game is on!</h3>
             <br />
-          <DrawCard />
+        <DrawCard />
           <hr />
             <button type="button" className="btn btn-primary" onClick={this.props.cancelGame}>Cancel Game</button>
           </div>

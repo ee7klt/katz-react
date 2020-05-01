@@ -34622,6 +34622,7 @@ var FETCH_SUCCESS = _types.DECK.FETCH_SUCCESS,
     DRAW_CARD_SUCCESS = _types.DECK.DRAW_CARD_SUCCESS,
     DRAW_CARD_ERROR = _types.DECK.DRAW_CARD_ERROR,
     DRAW_CARD_REQUEST = _types.DECK.DRAW_CARD_REQUEST;
+var API_ADDRESS = 'https://deckofcardsapi.com/api/deck';
 
 var fetchDeckSuccess = function fetchDeckSuccess(deckJson) {
   console.log('fetch deck success');
@@ -34679,7 +34680,7 @@ var drawCardRequest = function drawCardRequest() {
 var fetchNewDeck = function fetchNewDeck() {
   return function (dispatch) {
     dispatch(fetchDeckRequest());
-    return fetch('http://deckofcardsapi.com/api/deck/new/shuffle/').then(function (response) {
+    return fetch("".concat(API_ADDRESS, "/new/shuffle/")).then(function (response) {
       return response.json();
     }).then(function (json) {
       return dispatch(fetchDeckSuccess(json));
@@ -34693,10 +34694,10 @@ var fetchNewDeck = function fetchNewDeck() {
 
 exports.fetchNewDeck = fetchNewDeck;
 
-var drawNewCard = function drawNewCard() {
+var drawNewCard = function drawNewCard(deck_id) {
   return function (dispatch) {
     dispatch(drawCardRequest());
-    return fetch('https://deckofcardsapi.com/api/deck/b66bpdnx3yg0/draw/?count=1').then(function (response) {
+    return fetch("".concat(API_ADDRESS, "/").concat(deck_id, "/draw/?count=1")).then(function (response) {
       return response.json();
     }).then(function (json) {
       return dispatch(drawCardSuccess(json));
@@ -34772,7 +34773,7 @@ function (_Component) {
       return _react.default.createElement("div", null, _react.default.createElement("button", {
         type: "button",
         className: "btn btn-primary",
-        onClick: this.props.drawNewCard
+        onClick: this.props.drawNewCard(this.props.deck_id)
       }, "Draw the next card!"));
     }
   }]);
@@ -34780,14 +34781,22 @@ function (_Component) {
   return DrawCard;
 }(_react.Component);
 
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    drawNewCard: function drawNewCard(deck_id) {
+      return function () {
+        return dispatch((0, _deck.drawNewCard)(deck_id));
+      };
+    }
+  };
+};
+
 var _default = (0, _reactRedux.connect)(function (_ref) {
   var deck_id = _ref.deck.deck_id;
   return {
     deck_id: deck_id
   };
-}, {
-  drawNewCard: _deck.drawNewCard
-})(DrawCard);
+}, mapDispatchToProps)(DrawCard);
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/deck":"actions/deck.js"}],"components/App.js":[function(require,module,exports) {
@@ -35143,9 +35152,9 @@ var deckReducer = function deckReducer() {
       });
 
     case DRAW_CARD_SUCCESS:
-      var cards = action.cards;
       return _objectSpread({}, state, {
-        cards: cards,
+        remaining: action.remaining,
+        cards: action.cards,
         fetchState: success,
         message: null,
         isFetching: false
@@ -35296,7 +35305,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52046" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58874" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
