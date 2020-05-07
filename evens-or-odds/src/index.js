@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import Instructions from './components/Instructions';
+
 import FetchDeck from './components/FetchDeck';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
@@ -17,7 +17,7 @@ store.subscribe(() => console.log('store.getState()', store.getState()))
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    <Instructions />
+
 
   </Provider>
 ,

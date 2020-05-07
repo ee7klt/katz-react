@@ -34799,7 +34799,7 @@ var _default = (0, _reactRedux.connect)(function (_ref) {
 }, mapDispatchToProps)(DrawCard);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/deck":"actions/deck.js"}],"components/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/deck":"actions/deck.js"}],"components/ShowCard.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34807,109 +34807,26 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
-
 var _reactRedux = require("react-redux");
 
-var _settings = require("../actions/settings");
-
-var _deck = require("../actions/deck");
-
-var _fetchStates = _interopRequireDefault(require("../reducers/fetchStates"));
-
-var _DrawCard = _interopRequireDefault(require("./DrawCard"));
+var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var App =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: "render",
-    value: function render() {
-      if (this.props.isFetching) {
-        return _react.default.createElement("div", {
-          className: "container-fluid"
-        }, _react.default.createElement("h2", null, "Evens or Odds"), _react.default.createElement("p", null, "fetching post ..."));
-      } else if (this.props.fetchState === _fetchStates.default.error) {
-        return _react.default.createElement("div", {
-          className: "container-fluid"
-        }, _react.default.createElement("h2", null, "Evens or Odds"), _react.default.createElement("p", null, this.props.message));
-      } else return _react.default.createElement("div", {
-        className: "container-fluid"
-      }, _react.default.createElement("h2", null, "Evens or Odds"), this.props.gameStarted ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "The game is on!"), _react.default.createElement("br", null), _react.default.createElement(_DrawCard.default, null), _react.default.createElement("hr", null), _react.default.createElement("button", {
-        type: "button",
-        className: "btn btn-primary",
-        onClick: this.props.cancelGame
-      }, "Cancel Game")) : _react.default.createElement("div", null, _react.default.createElement("h3", null, "A new game awaits"), _react.default.createElement("br", null), _react.default.createElement("button", {
-        type: "button",
-        className: "btn btn-primary",
-        onClick: this.props.fetchNewDeck
-      }, "Start Game")));
-    }
-  }]);
-
-  return App;
-}(_react.Component);
+var ShowCard = function ShowCard() {
+  return _react.default.createElement("div", null, props.cards[0]);
+};
 
 var mapStateToProps = function mapStateToProps(state) {
-  var gameStarted = state.settings.gameStarted;
-  var _state$deck = state.deck,
-      fetchState = _state$deck.fetchState,
-      message = _state$deck.message,
-      isFetching = _state$deck.isFetching;
   return {
-    gameStarted: gameStarted,
-    fetchState: fetchState,
-    message: message,
-    isFetching: isFetching
+    cards: state.cards
   };
-}; // const mapDispatchToProps = dispatch => {
-//   return {
-//     startGame: () => dispatch(startGame()),
-//     cancelGame: () => dispatch(cancelGame()),
-//     fetchNewDeck: () => fetchNewDeck(dispatch)
-//   }
-// }
+};
 
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  cancelGame: _settings.cancelGame,
-  fetchNewDeck: _deck.fetchNewDeck
-})(App);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(ShowCard);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js","../actions/deck":"actions/deck.js","../reducers/fetchStates":"reducers/fetchStates.js","./DrawCard":"components/DrawCard.js"}],"components/Instructions.js":[function(require,module,exports) {
+},{"react-redux":"../node_modules/react-redux/es/index.js","react":"../node_modules/react/index.js"}],"components/Instructions.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34971,7 +34888,141 @@ var _default = (0, _reactRedux.connect)(function (state) {
 })(Instructions);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js"}],"components/FetchDeck.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _settings = require("../actions/settings");
+
+var _deck = require("../actions/deck");
+
+var _fetchStates = _interopRequireDefault(require("../reducers/fetchStates"));
+
+var _DrawCard = _interopRequireDefault(require("./DrawCard"));
+
+var _ShowCard = _interopRequireDefault(require("./ShowCard"));
+
+var _Instructions = _interopRequireDefault(require("./Instructions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var App =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(App, _Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: "render",
+    value: function render() {
+      //   if (this.props.isFetching) {
+      //     return (
+      //       <div className='container-fluid'>
+      //       <h2>Evens or Odds</h2>
+      //
+      //       <div className="spinner-grow" role="status">
+      //
+      //       <span className="sr-only">Loading...</span>
+      //       </div>
+      //       </div>
+      //     )
+      //   }
+      // else
+      if (this.props.fetchState === _fetchStates.default.error) {
+        return _react.default.createElement("div", {
+          className: "container-fluid"
+        }, _react.default.createElement("h2", null, "Evens or Odds"), _react.default.createElement("p", null, this.props.message));
+      } else return _react.default.createElement("div", {
+        className: "container-fluid"
+      }, _react.default.createElement("h2", null, "Evens or Odds"), this.props.gameStarted ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "The game is on!"), _react.default.createElement("br", null), this.props.isFetching && _react.default.createElement("div", {
+        className: "spinner-grow",
+        role: "status"
+      }, _react.default.createElement("span", {
+        className: "sr-only"
+      }, "Loading...")), _react.default.createElement("div", {
+        className: "card"
+      }, _react.default.createElement("div", {
+        className: "card-body"
+      }, _react.default.createElement("h5", {
+        className: "card-title"
+      }, "Card title"), _react.default.createElement(_ShowCard.default, null), _react.default.createElement(_DrawCard.default, null))), _react.default.createElement("hr", null), _react.default.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
+        onClick: this.props.cancelGame
+      }, "Cancel Game")) : _react.default.createElement("div", null, _react.default.createElement("h3", null, "A new game awaits"), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
+        onClick: this.props.fetchNewDeck
+      }, "Start Game")), _react.default.createElement("hr", null), _react.default.createElement(_Instructions.default, null));
+    }
+  }]);
+
+  return App;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  var gameStarted = state.settings.gameStarted;
+  var _state$deck = state.deck,
+      fetchState = _state$deck.fetchState,
+      message = _state$deck.message,
+      isFetching = _state$deck.isFetching;
+  return {
+    gameStarted: gameStarted,
+    fetchState: fetchState,
+    message: message,
+    isFetching: isFetching
+  };
+}; // const mapDispatchToProps = dispatch => {
+//   return {
+//     startGame: () => dispatch(startGame()),
+//     cancelGame: () => dispatch(cancelGame()),
+//     fetchNewDeck: () => fetchNewDeck(dispatch)
+//   }
+// }
+
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, {
+  cancelGame: _settings.cancelGame,
+  fetchNewDeck: _deck.fetchNewDeck
+})(App);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../actions/settings":"actions/settings.js","../actions/deck":"actions/deck.js","../reducers/fetchStates":"reducers/fetchStates.js","./DrawCard":"components/DrawCard.js","./ShowCard":"components/ShowCard.js","./Instructions":"components/Instructions.js"}],"components/FetchDeck.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35256,8 +35307,6 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _App = _interopRequireDefault(require("./components/App"));
 
-var _Instructions = _interopRequireDefault(require("./components/Instructions"));
-
 var _FetchDeck = _interopRequireDefault(require("./components/FetchDeck"));
 
 var _reactRedux = require("react-redux");
@@ -35277,8 +35326,8 @@ store.subscribe(function () {
 
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
-}, _react.default.createElement(_App.default, null), _react.default.createElement(_Instructions.default, null)), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/Instructions":"components/Instructions.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index.js":"reducers/index.js","redux-thunk":"../node_modules/redux-thunk/es/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+}, _react.default.createElement(_App.default, null)), document.getElementById('root'));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index.js":"reducers/index.js","redux-thunk":"../node_modules/redux-thunk/es/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35305,7 +35354,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58874" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53846" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

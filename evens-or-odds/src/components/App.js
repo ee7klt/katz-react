@@ -4,6 +4,8 @@ import {cancelGame} from '../actions/settings';
 import {fetchNewDeck} from '../actions/deck';
 import fetchStates from '../reducers/fetchStates';
 import DrawCard from './DrawCard';
+import ShowCard from './ShowCard';
+import Instructions from './Instructions';
 
 class App extends Component {
 
@@ -12,16 +14,20 @@ class App extends Component {
   render() {
 
 
-    if (this.props.isFetching) {
-      return (
-        <div className='container-fluid'>
-        <h2>Evens or Odds</h2>
-          <p>fetching post ...</p>
-        </div>
-      )
-    }
-
-    else if (this.props.fetchState === fetchStates.error) {
+  //   if (this.props.isFetching) {
+  //     return (
+  //       <div className='container-fluid'>
+  //       <h2>Evens or Odds</h2>
+  //
+  //       <div className="spinner-grow" role="status">
+  //
+  //       <span className="sr-only">Loading...</span>
+  //       </div>
+  //       </div>
+  //     )
+  //   }
+  // else
+   if (this.props.fetchState === fetchStates.error) {
       return (
         <div className='container-fluid'>
         <h2>Evens or Odds</h2>
@@ -34,12 +40,30 @@ class App extends Component {
     else return (
       <div className='container-fluid'>
       <h2>Evens or Odds</h2>
+
       {
         this.props.gameStarted ? (
           <div>
             <h3>The game is on!</h3>
             <br />
-        <DrawCard />
+            {
+              (this.props.isFetching) &&
+              <div className="spinner-grow" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            }
+            {
+              <div className="card">
+    <div className="card-body">
+      <h5 className="card-title">Card title</h5>
+
+    <ShowCard />
+          <DrawCard />
+    </div>
+  </div>
+            }
+
+
           <hr />
             <button type="button" className="btn btn-primary" onClick={this.props.cancelGame}>Cancel Game</button>
           </div>
@@ -51,7 +75,8 @@ class App extends Component {
           </div>
         )
       }
-
+      <hr />
+    <Instructions />
       </div>
 
     )
