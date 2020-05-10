@@ -57,7 +57,7 @@ class App extends Component {
     <div className="card-body">
       <h5 className="card-title">Card title</h5>
 
-    <ShowCard />
+  <ShowCard />
           <DrawCard />
     </div>
   </div>

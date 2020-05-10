@@ -34813,13 +34813,16 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ShowCard = function ShowCard() {
-  return _react.default.createElement("div", null, props.cards[0]);
+var ShowCard = function ShowCard(props) {
+  console.log("ShowCard props", props);
+  return _react.default.createElement("div", null, props.cards[0] ? _react.default.createElement("img", {
+    src: props.cards[0].image
+  }) : "no card");
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    cards: state.cards
+    cards: state.deck.cards
   };
 };
 
@@ -35354,7 +35357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53846" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59840" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

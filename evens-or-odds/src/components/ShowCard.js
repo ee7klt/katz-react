@@ -2,10 +2,11 @@ import {connect} from 'react-redux';
 import React from 'react';
 
 
-const ShowCard = () => {
+const ShowCard = props => {
+  console.log("ShowCard props",props)
   return (
     <div>
-    {props.cards[0]}
+  { props.cards[0] ? <img src={props.cards[0].image} /> : "no card"}
   </div>
   )
 }
@@ -13,7 +14,7 @@ const ShowCard = () => {
 
 const mapStateToProps = state => {
   return {
-    cards: state.cards
+    cards: state.deck.cards
   }
 }
 
