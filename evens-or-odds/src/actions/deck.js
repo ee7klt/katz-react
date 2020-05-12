@@ -19,16 +19,16 @@ const fetchDeckRequest = () => {
 
 
  const drawCardSuccess = ({cards,remaining}) => {
-  return {remaining, cards, isFetching: false, type: DRAW_CARD_SUCCESS};
+  return {remaining, cards, isFetchingCard: false, type: DRAW_CARD_SUCCESS};
 }
 
 const drawCardError = error => {
-  return {message:error.message, isFetching: false, type: DRAW_CARD_ERROR};
+  return {message:error.message, isFetchingCard: false, type: DRAW_CARD_ERROR};
 }
 
 
 const drawCardRequest = () => {
-  return {isFetching: true, type: DRAW_CARD_REQUEST}
+  return {isFetchingCard: true, type: DRAW_CARD_REQUEST}
 }
 
 export const fetchNewDeck =  () => dispatch  => {

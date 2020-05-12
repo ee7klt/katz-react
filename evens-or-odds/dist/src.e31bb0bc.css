@@ -13,13 +13,13 @@ h1, h2, h3, h4, h5 {
 
 @font-face {
   font-family: RobotoCondensed;
-  src: url(assets/roboto-condensed.light.ttf);
+  src: url(roboto-condensed.light.6709adf4.ttf);
   font-weight: 800;
 }
 
 @font-face {
   font-family: EconomicaBold;
-  src: url(assets/economica-bold.ttf);
+  src: url(economica-bold.12a9e27d.ttf);
 }
 
 

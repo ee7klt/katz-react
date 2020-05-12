@@ -5,6 +5,7 @@ import {expandInstructions,collapseInstructions} from '../actions/settings';
 
 const Instructions  = props  => {
   const {instructionsExpanded,expandInstructions,collapseInstructions} = props;
+  console.log("props from instructions",props)
   return (
   <div className='container-fluid'>
     {
@@ -44,6 +45,6 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(
-  state => ({instructionsExpanded: state.instructionsExpanded}),
+  state => ({instructionsExpanded: state.settings.instructionsExpanded}),
   {expandInstructions, collapseInstructions}
 )(Instructions);

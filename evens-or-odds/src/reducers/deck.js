@@ -13,7 +13,8 @@ const DEFAULT_DECK = {
   isFetching: false,
   fetchState: '',
   message:'',
-  cards:[]
+  cards:[],
+  isFetchingCard: false
 }
 
 
@@ -22,17 +23,17 @@ const deckReducer = (state = DEFAULT_DECK, action) => {
     case DRAW_CARD_REQUEST:
       return {
         ...state,
-        isFetching: action.isFetching
+        isFetchingCard: true
       }
     case DRAW_CARD_SUCCESS:
 
-      return {  ...state,remaining: action.remaining, cards: action.cards, fetchState: success, message:null, isFetching: false};
+      return {  ...state,remaining: action.remaining, cards: action.cards, fetchState: success, message:null, isFetchingCard: false};
     case DRAW_CARD_ERROR:
       return {
         ...state,
         message: action.message,
         fetchState: error,
-        isFetching: false
+        isFetchingCard: false
       };
     case FETCH_REQUEST:
       return {

@@ -34657,7 +34657,7 @@ var drawCardSuccess = function drawCardSuccess(_ref) {
   return {
     remaining: remaining,
     cards: cards,
-    isFetching: false,
+    isFetchingCard: false,
     type: DRAW_CARD_SUCCESS
   };
 };
@@ -34665,14 +34665,14 @@ var drawCardSuccess = function drawCardSuccess(_ref) {
 var drawCardError = function drawCardError(error) {
   return {
     message: error.message,
-    isFetching: false,
+    isFetchingCard: false,
     type: DRAW_CARD_ERROR
   };
 };
 
 var drawCardRequest = function drawCardRequest() {
   return {
-    isFetching: true,
+    isFetchingCard: true,
     type: DRAW_CARD_REQUEST
   };
 };
@@ -34815,14 +34815,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ShowCard = function ShowCard(props) {
   console.log("ShowCard props", props);
-  return _react.default.createElement("div", null, props.cards[0] ? _react.default.createElement("img", {
+  return _react.default.createElement("div", {
+    style: {
+      margin: 10
+    }
+  }, props.isFetchingCard ? _react.default.createElement("div", {
+    style: {
+      height: 100
+    },
+    className: "d-flex justify-content-center align-items-center"
+  }, _react.default.createElement("div", {
+    className: "spinner-grow",
+    role: "status"
+  }, _react.default.createElement("span", {
+    className: "sr-only"
+  }, "Loading..."))) : props.cards[0] ? _react.default.createElement("div", {
+    className: "fadeIn three"
+  }, _react.default.createElement("img", {
+    height: "100",
     src: props.cards[0].image
-  }) : "no card");
+  }), " ") : _react.default.createElement("div", {
+    style: {
+      height: 100
+    }
+  }));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    cards: state.deck.cards
+    cards: state.deck.cards,
+    isFetchingCard: state.deck.isFetchingCard
   };
 };
 
@@ -34851,6 +34873,7 @@ var Instructions = function Instructions(props) {
   var instructionsExpanded = props.instructionsExpanded,
       expandInstructions = props.expandInstructions,
       collapseInstructions = props.collapseInstructions;
+  console.log("props from instructions", props);
   return _react.default.createElement("div", {
     className: "container-fluid"
   }, instructionsExpanded ? _react.default.createElement("div", null, _react.default.createElement("h3", null, "Instructions"), _react.default.createElement("p", null, "Welcome to evens or odds. The game goes like this. "), _react.default.createElement("p", null, "The deck is shuffled. Then choose: will the next card be even or odd?"), _react.default.createElement("p", null, "Make a choice on every draw, and see how many you get right"), _react.default.createElement("button", {
@@ -34883,7 +34906,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var _default = (0, _reactRedux.connect)(function (state) {
   return {
-    instructionsExpanded: state.instructionsExpanded
+    instructionsExpanded: state.settings.instructionsExpanded
   };
 }, {
   expandInstructions: _settings.expandInstructions,
@@ -34953,7 +34976,7 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      //   if (this.props.isFetching) {
+      console.log(this.props); //   if (this.props.isFetching) {
       //     return (
       //       <div className='container-fluid'>
       //       <h2>Evens or Odds</h2>
@@ -34966,6 +34989,7 @@ function (_Component) {
       //     )
       //   }
       // else
+
       if (this.props.fetchState === _fetchStates.default.error) {
         return _react.default.createElement("div", {
           className: "container-fluid"
@@ -34983,7 +35007,7 @@ function (_Component) {
         className: "card-body"
       }, _react.default.createElement("h5", {
         className: "card-title"
-      }, "Card title"), _react.default.createElement(_ShowCard.default, null), _react.default.createElement(_DrawCard.default, null))), _react.default.createElement("hr", null), _react.default.createElement("button", {
+      }, "Current Card"), _react.default.createElement(_ShowCard.default, null), _react.default.createElement(_DrawCard.default, null))), _react.default.createElement("hr", null), _react.default.createElement("button", {
         type: "button",
         className: "btn btn-primary",
         onClick: this.props.cancelGame
@@ -35192,7 +35216,8 @@ var DEFAULT_DECK = {
   isFetching: false,
   fetchState: '',
   message: '',
-  cards: []
+  cards: [],
+  isFetchingCard: false
 };
 
 var deckReducer = function deckReducer() {
@@ -35202,7 +35227,7 @@ var deckReducer = function deckReducer() {
   switch (action.type) {
     case DRAW_CARD_REQUEST:
       return _objectSpread({}, state, {
-        isFetching: action.isFetching
+        isFetchingCard: true
       });
 
     case DRAW_CARD_SUCCESS:
@@ -35211,14 +35236,14 @@ var deckReducer = function deckReducer() {
         cards: action.cards,
         fetchState: success,
         message: null,
-        isFetching: false
+        isFetchingCard: false
       });
 
     case DRAW_CARD_ERROR:
       return _objectSpread({}, state, {
         message: action.message,
         fetchState: error,
-        isFetching: false
+        isFetchingCard: false
       });
 
     case FETCH_REQUEST:
@@ -35301,7 +35326,79 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 var _default = thunk;
 exports.default = _default;
-},{}],"index.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"./assets/roboto-condensed.light.ttf":[["roboto-condensed.light.6709adf4.ttf","assets/roboto-condensed.light.ttf"],"assets/roboto-condensed.light.ttf"],"./assets/economica-bold.ttf":[["economica-bold.12a9e27d.ttf","assets/economica-bold.ttf"],"assets/economica-bold.ttf"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -35320,6 +35417,8 @@ var _index = _interopRequireDefault(require("./reducers/index.js"));
 
 var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
 
+require("./index.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _redux.createStore)(_index.default, (0, _redux.applyMiddleware)(_reduxThunk.default));
@@ -35329,8 +35428,8 @@ store.subscribe(function () {
 
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
-}, _react.default.createElement(_App.default, null)), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index.js":"reducers/index.js","redux-thunk":"../node_modules/redux-thunk/es/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+}, _react.default.createElement(_App.default, null), _react.default.createElement("div", null, "test test")), document.getElementById('root'));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.js","./components/FetchDeck":"components/FetchDeck.js","react-redux":"../node_modules/react-redux/es/index.js","redux":"../node_modules/redux/es/redux.js","./reducers/index.js":"reducers/index.js","redux-thunk":"../node_modules/redux-thunk/es/index.js","./index.css":"index.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35357,7 +35456,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59969" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

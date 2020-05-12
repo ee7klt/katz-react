@@ -13,7 +13,7 @@ class App extends Component {
 
   render() {
 
-
+    console.log(this.props)
   //   if (this.props.isFetching) {
   //     return (
   //       <div className='container-fluid'>
@@ -53,11 +53,12 @@ class App extends Component {
               </div>
             }
             {
-              <div className="card">
+              <div className="card" >
     <div className="card-body">
-      <h5 className="card-title">Card title</h5>
+      <h5 className="card-title">Current Card</h5>
+    
 
-  <ShowCard />
+ <ShowCard />
           <DrawCard />
     </div>
   </div>
